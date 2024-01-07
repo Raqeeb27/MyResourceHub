@@ -52,9 +52,10 @@ restart_hadoop_services() {
 # Function to create directory structure for WordCount
 create_directory_structure() {
     echo "Creating directory structure..."
+    
     mkdir -p hadoop_wordcount/example_classes
     mkdir -p hadoop_wordcount/input_data
-    sleep 1.5
+    sleep 2
     echo
 
     # Setting variables for directory names
@@ -62,7 +63,7 @@ create_directory_structure() {
     example_classes_directory="example_classes"
     input_data_directory="input_data"
 
-    echo "'$wordcount_directory' directory with subdirectories '$example_classes_directory' & '$input_data_directory' created successfully...."
+    echo "'$wordcount_directory' directory with subdirectories '$example_classes_directory' & '$input_data_directory' created successfully."
 }
 
 ## --------------------------------------------------------------------------
@@ -70,14 +71,33 @@ create_directory_structure() {
 edit_input_file(){
     
     echo "Opening input.txt file......"
-    sleep 2
-    echo "Please provide input data in the editor that opens..."
-    echo
     sleep 3
-    echo "# Erase this line and input your text" > input.txt
+    echo "Please provide input data in the editor that opens..."
+    
+    echo
+    sleep 4
+    
+    echo "# Erase this line and input your text. Then press ctrl+s to Save and ctrl+x to Exit" > input.txt
     nano input.txt
-    sleep 0.75
-    echo "\"input.txt\" file saved successfully...."
+
+    input_file=~/hadoop_wordcount/input_data/input.txt
+    
+    # Check if the file is empty or contains only spaces/blank lines
+    if [[ ! -s "$input_file" ]] || [[ ! "$(grep -v '^[[:space:]]*$' "$input_file")" ]]; then
+    
+        # File is empty or contains only spaces/blank lines, exit
+        sleep 1
+        echo "File was empty or contained only spaces/blank lines."
+        
+        log_and_pause
+        echo "Exiting...."
+        
+        echo
+        sleep 2
+    	exit 0
+    fi
+    sleep 1
+    echo "\"input.txt\" file saved successfully.."
 }
 
 ## --------------------------------------------------------------------------
@@ -85,10 +105,11 @@ edit_input_file(){
 set_hadoop_classpath(){
     echo "Setting up HADOOP_CLASSPATH...."
     echo
-    sleep 2
+    sleep 2.5
 
     # Check if HADOOP_CLASSPATH is already set
     if [ -z "$HADOOP_CLASSPATH" ]; then
+    
         # If not set, then set it
         export HADOOP_CLASSPATH=$(hadoop classpath)
         echo "HADOOP_CLASSPATH set to: $HADOOP_CLASSPATH"
@@ -115,9 +136,17 @@ setup_hdfs_wordcount_dir(){
     # Create 'Input' directory within 'WordCount' directory
     hadoop fs -mkdir -p /WordCount/Input
     
+    echo
+    echo "Successfully created \"WordCount\" and \"Input\" directories in HDFS."
+    sleep 1
+    
     # upload local 'input.txt' file to Input directory in HDFS
     hadoop fs -put -f ~/hadoop_wordcount/input_data/input.txt /WordCount/Input/
-
+    echo
+    echo "Uploaded input.txt file to Input directory in HDFS.."
+    sleep 2
+    
+    echo
     echo
     echo "HDFS operations completed successfully."
 }
@@ -133,7 +162,7 @@ compile_wordcount_java(){
     echo "Compilation successful."
 
     echo
-    sleep 2
+    sleep 3
 
     # Navigate to example_classes directory
     cd example_classes/
@@ -152,9 +181,11 @@ create_jar(){
     jar -cvf FirstTutorial.jar -C ~/hadoop_wordcount/example_classes .
 
     echo
+    sleep 1
+    
     echo "JAR file created successfully."
     echo
-    sleep 2
+    sleep 3
 
     # List JAR file
     echo "Created JAR file:"
@@ -170,7 +201,7 @@ run_hadoop_wordcount_job(){
     hadoop jar ~/hadoop_wordcount/FirstTutorial.jar WordCount /WordCount/Input/ /WordCount/Output/
 
     echo
-    sleep 1
+    sleep 0.5
     echo "WordCount job completed successfully."
 }
 
@@ -197,7 +228,7 @@ set -e  # Exit script if any command returns a non-zero status
 
 clear
 
-sudo echo -e "\n------- Hadoop WordCount Script -------"
+sudo echo -e "\n ------- Hadoop WordCount Script -------"
 
 log_and_pause
 
@@ -209,6 +240,7 @@ log_and_pause
 # Stop and Start hadoop services
 restart_hadoop_services
 
+sleep 1
 log_and_pause
 
 # Navigate to home directory
@@ -217,7 +249,7 @@ cd ~
 # Create directory structure for WordCount
 create_directory_structure
 
-sleep 1
+sleep 2.5
 log_and_pause
 
 # Navigate to input_data directory
@@ -290,8 +322,9 @@ public class WordCount {
 }
 EOF
 echo
-echo "WordCount.java file saved successfully...."
+echo "\"WordCount.java\" file saved successfully.."
 
+sleep 1
 log_and_pause
 
 # Set HADOOP_CLASSPATH ENVIRONMENT variable
@@ -312,11 +345,13 @@ compile_wordcount_java
 # Navigate back to the main directory
 cd ..
 
+sleep 2
 log_and_pause
 
 # Create JAR file
 create_jar
 
+sleep 2
 log_and_pause
 
 # Run WordCount job on Hadoop
@@ -327,7 +362,6 @@ log_and_pause
 # Display output with the word counts
 display_output
 
-echo
 log_and_pause
 
 # Display Success message
