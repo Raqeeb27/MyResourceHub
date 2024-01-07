@@ -4,11 +4,20 @@
 This repository contains an automated setup script for running the Hadoop WordCount example. The script handles the configuration of Hadoop services, creation of directory structures, compilation of Java code, and execution of the WordCount job on Hadoop.
 
 ## Prerequisites
-- [Hadoop](https://hadoop.apache.org/) installed on your system and properly configured. You can directly download it from [here](https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz).
+- [Hadoop](https://hadoop.apache.org/) installed on your system and properly configured. You can follow [this](https://github.com/NONAN23x/Resources/blob/main/hadoop_framework_setup.md) guide for the setup.
 
 ## Usage
-Run the below command:
+### Run the below commands:
+
+   Update and upgrade system packages
    ```bash
    sudo apt update && sudo apt upgrade -y
+   ```
+   Install wget
+   ```bash
    sudo apt install wget -y
-   wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/word-count/hadoop_wordcount.sh && bash hadoop_wordcount.sh
+   ```
+   Download and run the Hadoop WordCount Automation Script
+   ```bash
+   cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/word-count/hadoop_wordcount.sh && bash hadoop_wordcount.sh
+   ```
