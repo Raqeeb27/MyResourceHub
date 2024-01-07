@@ -104,28 +104,22 @@ set_hadoop_classpath(){
 setup_hdfs_wordcount_dir(){
     echo "Creating WordCount directory structure in HDFS..."
 
-    # Check if the /WordCount directory already exists in HDFS
-    hadoop fs -test -e /WordCount
-
-    if [ $? -eq 0 ]; then
-        echo
-        echo "Directory '/WordCount' already exists in HDFS. Recreating it...."
-        hadoop fs -rm -r /WordCount
-    fi
-
-    hadoop fs -mkdir /WordCount
-    hadoop fs -mkdir /WordCount/Input
-    hadoop fs -put ~/hadoop_wordcount/input_data/input.txt /WordCount/Input/
+    echo
+    
+    # Create WordCount directory if it doesn't exists
+    hadoop fs -mkdir -p /WordCount/tmp
+    
+    # Remove all the contents of WordCount directory
+    hadoop fs -rm -r /WordCount/*
+    
+    # Create 'Input' directory within 'WordCount' directory
+    hadoop fs -mkdir -p /WordCount/Input
+    
+    # upload local 'input.txt' file to Input directory in HDFS
+    hadoop fs -put -f ~/hadoop_wordcount/input_data/input.txt /WordCount/Input/
 
     echo
-
-    # Check if HDFS operations completed successfully
-    if [ $? -eq 0 ]; then
-        echo "HDFS operations completed successfully."
-    else
-        echo "Error: Failed to perform HDFS operations. Exiting."
-        exit 1
-    fi
+    echo "HDFS operations completed successfully."
 }
 
 ## --------------------------------------------------------------------------
@@ -136,14 +130,7 @@ compile_wordcount_java(){
     sleep 2
 
     echo
-
-    # Check if compilation completed successfully
-    if [ $? -eq 0 ]; then
-        echo "Compilation successful."
-    else
-        echo "Error: Compilation failed. Exiting."
-        exit 1
-    fi
+    echo "Compilation successful."
 
     echo
     sleep 2
@@ -165,15 +152,7 @@ create_jar(){
     jar -cvf FirstTutorial.jar -C ~/hadoop_wordcount/example_classes .
 
     echo
-
-    # Check if JAR file creation completed successfully
-    if [ $? -eq 0 ]; then
-        echo "JAR file created successfully."
-    else
-        echo "Error: Failed to create JAR file. Exiting."
-        exit 1
-    fi
-
+    echo "JAR file created successfully."
     echo
     sleep 2
 
@@ -192,14 +171,7 @@ run_hadoop_wordcount_job(){
 
     echo
     sleep 1
-
-    # Check if WordCount job completed successfully
-    if [ $? -eq 0 ]; then
-        echo "WordCount job completed successfully."
-    else
-        echo "Error: WordCount job failed. Exiting."
-        exit 1
-    fi
+    echo "WordCount job completed successfully."
 }
 
 ## --------------------------------------------------------------------------
@@ -225,7 +197,7 @@ set -e  # Exit script if any command returns a non-zero status
 
 clear
 
-sudo echo "----- Hadoop WordCount Script -----"
+sudo echo -e "\n------- Hadoop WordCount Script -------"
 
 log_and_pause
 
