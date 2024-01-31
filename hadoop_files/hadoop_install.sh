@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script: automated_hadoop_setup.sh
+# Script: hadoop_setup.sh
 # Description: Fully automated setup script for installing Java, Hadoop, configuring environment, and setting up SSH.
-# Author: Your Name
-# Date: 29/01/2024
+# Author: Mohammed Abdul Raqeeb
+# Date: 30/01/2024
 
 # ------- Automated Hadoop Setup Script -------
 
@@ -14,8 +14,10 @@
 update_system(){
     echo -e "\nUpdating System.....\n"
     sleep 1
-    sudo apt update && sudo apt upgrade -y
+
+    sudo apt update && sudo apt upgrade -y && sudo apt install wget -y
     log_and_pause
+
     echo "System is now up to date!"
     log_and_pause
 }
@@ -24,6 +26,8 @@ update_system(){
 # Function to prompt user for download confirmation
 confirm_download() {
     read -p "The Hadoop tar file is around 700MB in size. Do you want to proceed with the download? (Y/N): " choice
+
+    # Accept 'Y', 'YES' to confirm
     case "$choice" in
         [Yy]|[Yy][Ee][Ss]) return 0 ;;
         *) return 1 ;;
@@ -36,7 +40,7 @@ download_and_extract_hadoop() {
     log_and_pause
 
     # Call confirm_download to check if the user wants to proceed
-    confirm_download || { echo "Aborting Hadoop installation."; exit 1; }
+    confirm_download || { sleep 1; echo "Aborting Hadoop installation..."; sleep 1; echo -e "Exiting...\n"; sleep 1; exit 1; }
 
     # Check if Hadoop tar file already exists in Downloads
     if [ -f ~/Downloads/hadoop-3.3.6.tar.gz ]; then
@@ -47,7 +51,7 @@ download_and_extract_hadoop() {
     # Download Hadoop tar file
     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads
 
-    # Check if Hadoop directory already exists
+    # Check if Hadoop-3.3.6 directory already exists
     if [ -d ~/hadoop-3.3.6 ]; then
         # echo "Hadoop directory already exists. Removing existing directory..."
         rm -rf ~/hadoop-3.3.6
@@ -56,8 +60,12 @@ download_and_extract_hadoop() {
     log_and_pause
     echo -e "Extracting hadoop-3.3.6.tar.gz ....\n "
     sleep 1
+
     # Extract Hadoop tar file
     tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz
+    log_and_pause
+
+    echo -e "Successfully downloaded and extracted Hadoop!"
     log_and_pause
 }
 
@@ -65,9 +73,11 @@ download_and_extract_hadoop() {
 # Function to install Java JDK 8
 install_java() {
     echo -e "\nInstalling Java JDK 8...\n"
+
     sleep 1
     sudo apt-get install openjdk-8-jdk -y
     log_and_pause
+
     echo "Java JDK 8 successfully installed!"
     log_and_pause
 }
@@ -75,6 +85,7 @@ install_java() {
 ## --------------------------------------------------------------------------
 # Function to remove existing Hadoop-related environment variables from .bashrc
 remove_existing_hadoop_env_variables() {
+
     # echo "Removing existing Hadoop-related environment variables from .bashrc..."
     sed -i '/export JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\/usr\/lib\/jvm\/java-8-openjdk-amd64\/bin/d' ~/.bashrc
@@ -96,8 +107,10 @@ remove_existing_hadoop_env_variables() {
 # Function to configure Java environment variables
 configure_java_environment() {
     echo -e "\nConfiguring Java environment variables in .bashrc..."
+
     echo -e "\n\nexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
     echo "export PATH=\$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin" >> ~/.bashrc
+
     log_and_pause
     echo "Configured!"
     log_and_pause
@@ -108,9 +121,11 @@ configure_java_environment() {
 install_ssh() {
     echo -e "\nInstalling SSH..."
     log_and_pause
+
     sudo apt-get install ssh -y
     log_and_pause
-    echo -e "SSH is installed successfully"
+
+    echo -e "SSH is installed successfully!"
     log_and_pause
 }
 
@@ -118,6 +133,7 @@ install_ssh() {
 # Function to configure Hadoop environment variables
 configure_hadoop_environment() {
     echo -e "\nConfiguring Hadoop environment variables in .bashrc..."
+
     echo "export HADOOP_HOME=~/hadoop-3.3.6/" >> ~/.bashrc
     echo "export PATH=\$PATH:\$HADOOP_HOME/bin" >> ~/.bashrc
     echo "export PATH=\$PATH:\$HADOOP_HOME/sbin" >> ~/.bashrc
@@ -145,6 +161,16 @@ configure_hadoop_environment() {
     export HADOOP_LOG_DIR=$HADOOP_HOME/logs 
     export PDSH_RCMD_TYPE=ssh
 
+    # Check if the line is present in .bashrc
+    if grep -qF "eval \"\$(starship init bash)\"" ~/.bashrc; then
+        # Remove the line from .bashrc
+        sed -i '/eval "\$(starship init bash)"/d' ~/.bashrc
+        # Append the line to .bashrc after export statements
+        echo -e "\neval \"\$(starship init bash)\"" >> ~/.bashrc
+    fi
+
+    log_and_pause
+    echo "Done!"
     log_and_pause
 }
 
@@ -196,6 +222,7 @@ edit_hadoop_configs() {
   </property>
 </configuration>
 EOF
+
 # ------------------------
     # Edit hdfs-site.xml
     cat << 'EOF' > ~/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
@@ -235,7 +262,7 @@ EOF
 
     # Get the current username using whoami
     USERNAME=$(whoami)
-    # Use sed to replace "UserName" with the current username
+    # Using sed to replace "UserName" with the current username
     sed -i "s/UserName/$USERNAME/g" ~/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
 
 # ------------------------
@@ -270,6 +297,7 @@ EOF
   </property>
 </configuration>
 EOF
+
 # ------------------------
     # Edit yarn-site.xml
     cat << 'EOF' > ~/hadoop-3.3.6/etc/hadoop/yarn-site.xml
@@ -299,7 +327,9 @@ EOF
   </property>
 </configuration>
 EOF
+
     sleep 1
+    echo -e "\nDone!"
     log_and_pause
 }
 
@@ -307,7 +337,11 @@ EOF
 # Function to update hadoop-env.sh
 update_hadoop_env() {
     echo -e "\nUpdating hadoop-env.sh..."
+
     sed -i '37s/.*/JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/' ~/hadoop-3.3.6/etc/hadoop/hadoop-env.sh
+
+    sleep 1
+    echo -e "\nDone!"
     log_and_pause
 }
 
@@ -316,6 +350,7 @@ update_hadoop_env() {
 setup_ssh_keys() {
     echo -e "\nSetting up SSH Keys....."
     log_and_pause
+
     # Configure SSH to automatically accept new host keys
     # echo -e "Host localhost\n  StrictHostKeyChecking no" >> ~/.ssh/config
     # chmod 0600 ~/.ssh/config
@@ -323,18 +358,23 @@ setup_ssh_keys() {
     # Check if SSH key already exists
     if [ ! -f ~/.ssh/id_rsa ]; then
         # Generate SSH key without passphrase
-        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa        
     else
-        echo "SSH key already exists! Skipping key generation."
+        echo -e "SSH key already exists! Skipping key generation.\n"
     fi
 
-    # Append public key to authorized_keys
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    # Check if SSH key is in authorized_keys
+    if [ -f ~/.ssh/authorized_keys ] && grep -qF "$(cat ~/.ssh/id_rsa.pub)" ~/.ssh/authorized_keys; then
+        echo -e "SSH key already exists in authorized_keys. Skipping key addition.\n"
+    else
+        # Append public key to authorized_keys
+        cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    fi
+
     chmod 0600 ~/.ssh/authorized_keys
 
-    # Test SSH connection to localhost
-    # echo "Testing SSH connection to localhost..."
-    # ssh localhost
+    sleep 1
+    echo -e "\nSSH Keys setup Completed!"
     log_and_pause
 }
 
@@ -342,7 +382,21 @@ setup_ssh_keys() {
 # Function to create Hadoop data directories
 create_hadoop_data_directories() {
     echo -e "\nCreating Hadoop data directories..."
+
     mkdir -p ~/hadoop-3.3.6/hadoop_data/{namenode,datanode}
+
+    sleep 1
+    echo -e "\nDone!"
+    log_and_pause
+}
+
+## --------------------------------------------------------------------------
+# Function to stop Hadoop services
+stop_hadoop_services() {
+    echo -e "\nStopping Hadoop services if any..."
+    log_and_pause
+
+    stop-all.sh || { echo -e "\nError stopping Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
     log_and_pause
 }
 
@@ -351,20 +405,23 @@ create_hadoop_data_directories() {
 format_hadoop_namenode() {
     echo -e "\nFormatting the Hadoop namenode/filesystem..."
     log_and_pause
+
     ~/hadoop-3.3.6/bin/hdfs namenode -format
+
+    sleep 1
+    echo -e "\nNamenode formatted successfully."
     log_and_pause
 }
 
 ## --------------------------------------------------------------------------
 # Function to start Hadoop services
 start_hadoop_services() {
-    echo -e "\nStopping Hadoop services if any..."
+    echo -e "\nStarting Hadoop services..."
     log_and_pause
-    stop-all.sh
-    log_and_pause
-    echo "Starting Hadoop services..."
-    log_and_pause
-    start-all.sh
+
+    start-all.sh || { echo -e "\nError starting Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
+
+    echo -e "\nHadoop services started successfully."
     log_and_pause
 }
 
@@ -372,43 +429,57 @@ start_hadoop_services() {
 # Function to display success message
 display_success_message() {
     echo -e "\n\n----- Automated Hadoop setup completed successfully -----\n"
-    echo "Please open your any browser and navigate to http://localhost:9870."
+
+    echo "Please open your any browser and navigate to \"http://localhost:9870\""
     log_and_pause
     sleep 2
+
     echo "Note:- When you restart your machine, run the following commands:"
-    echo -e "sudo service ssh start\nstart-all.sh\n"
+    echo -e "sudo service ssh start\nstart-all.sh"
+
+    log_and_pause
+    echo -e "\n-------- SUCCESS --------\n"
+    sleep 1
 }
 
 ## --------------------------------------------------------------------------
+#Function to print blank lines and sleep
 log_and_pause(){
     sleep 2
     echo -e "\n"
 }
 
 ### ===========================================================================
-##
-# Main
+## Main function to execute all the steps
+#
 
-set -e  # Exit script if any command returns a non-zero status
+main() {
+    set -e  # Exit script if any command returns a non-zero status
 
-clear
+    clear
 
-sudo echo -e "\n ------- Automated Hadoop Setup Script -------\n"
+    sudo echo -e "\n ------- Automated Hadoop Setup Script -------"
+    log_and_pause
 
-# Run functions in sequence
-update_system
-download_and_extract_hadoop
-install_java
-remove_existing_hadoop_env_variables
-configure_java_environment
-install_ssh
-configure_hadoop_environment
-edit_hadoop_configs
-update_hadoop_env
-setup_ssh_keys
-create_hadoop_data_directories
-format_hadoop_namenode
-start_hadoop_services
+    # Run functions in sequence
+    update_system
+    download_and_extract_hadoop
+    install_java
+    remove_existing_hadoop_env_variables
+    configure_java_environment
+    install_ssh
+    configure_hadoop_environment
+    edit_hadoop_configs
+    update_hadoop_env
+    setup_ssh_keys
+    create_hadoop_data_directories
+    stop_hadoop_services
+    format_hadoop_namenode
+    start_hadoop_services
 
-# Display success message
-display_success_message
+    # Display success message
+    display_success_message
+}
+
+# Execute the main function
+main

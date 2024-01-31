@@ -1,1 +1,2 @@
 hadoop_files/hadoop_install.sh -crlf
+starship_install.sh -crlf
