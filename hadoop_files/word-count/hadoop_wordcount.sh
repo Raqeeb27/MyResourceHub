@@ -16,7 +16,7 @@ check_hadoop_availability(){
         echo -e "Error: 'hadoop' command not found. Please make sure Hadoop is installed and in your PATH.\n"
         sleep 1
 
-        echo -e "Run the below command to install and configure Hadoop if isn't installed:\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop_install.sh && bash hadoop_install.sh\n"
+        echo -e "Run the below command to install and configure Hadoop if isn't installed:\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit\n"
         sleep 1
         
         echo -e "Exiting....\n"
@@ -70,10 +70,10 @@ create_directory_structure() {
         rm -rf ~/hadoop_wordcount
     fi
 
-    mkdir -p ~/hadoop_wordcount/{example_classes,input_data}
+    mkdir -p ~/hadoop_wordcount/{wordcount_classes,input_data}
     sleep 2
 
-    echo -e "\n'hadoop_wordcount' directory with subdirectories 'example_classes' & 'input_data' created successfully."
+    echo -e "\n'hadoop_wordcount' directory with subdirectories 'wordcount_classes' & 'input_data' created successfully."
 
     sleep 2.5
     log_and_pause
@@ -237,7 +237,7 @@ setup_hdfs_wordcount_dir(){
 # Function to compile WordCount.java file
 compile_wordcount_java(){
     echo "Compiling WordCount.java..."
-    javac -classpath ${HADOOP_CLASSPATH} -d ~/hadoop_wordcount/example_classes ~/hadoop_wordcount/WordCount.java
+    javac -classpath ${HADOOP_CLASSPATH} -d ~/hadoop_wordcount/wordcount_classes ~/hadoop_wordcount/WordCount.java
     sleep 2
 
     echo -e "\nCompilation successful.\n"
@@ -246,7 +246,7 @@ compile_wordcount_java(){
 
     # List compiled classes
     echo "Compiled classes:"
-    ls ~/hadoop_wordcount/example_classes
+    ls ~/hadoop_wordcount/wordcount_classes
 
     sleep 2
     log_and_pause
@@ -259,7 +259,7 @@ create_jar(){
     sleep 2
 
     cd ~/hadoop_wordcount
-    jar -cvf FirstTutorial.jar -C ~/hadoop_wordcount/example_classes .
+    jar -cvf Wordcount.jar -C ~/hadoop_wordcount/wordcount_classes .
     cd ~
 
     echo
@@ -282,7 +282,7 @@ run_hadoop_wordcount_job(){
     echo -e "Running WordCount job on Hadoop...\n"
     sleep 1.5
 
-    hadoop jar ~/hadoop_wordcount/FirstTutorial.jar WordCount /WordCount/Input/ /WordCount/Output/
+    hadoop jar ~/hadoop_wordcount/Wordcount.jar WordCount /WordCount/Input/ /WordCount/Output/
 
     echo
     sleep 0.5

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script: hadoop_setup.sh
+# Script: hadoop-setup.sh
 # Description: Fully automated setup script for installing Java, Hadoop, configuring environment, and setting up SSH.
 # Author: Mohammed Abdul Raqeeb
 # Date: 30/01/2024
@@ -15,7 +15,7 @@ update_system(){
     echo -e "\nUpdating System.....\n"
     sleep 1
 
-    sudo apt update && sudo apt upgrade -y && sudo apt install wget -y
+    sudo apt update && sudo apt upgrade -y
     log_and_pause
 
     echo "System is now up to date!"
@@ -44,16 +44,14 @@ download_and_extract_hadoop() {
 
     # Check if Hadoop tar file already exists in Downloads
     if [ -f ~/Downloads/hadoop-3.3.6.tar.gz ]; then
-        # echo "Hadoop tar file already exists in Downloads. Removing existing file..."
         rm ~/Downloads/hadoop-3.3.6.tar.gz
     fi
 
     # Download Hadoop tar file
-    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads
+    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads || {echo -e "\nAn error occured while downloading Hadoop-3.3.6\n\nExiting...\n"; sleep 1; exit 1;}
 
     # Check if Hadoop-3.3.6 directory already exists
     if [ -d ~/hadoop-3.3.6 ]; then
-        # echo "Hadoop directory already exists. Removing existing directory..."
         rm -rf ~/hadoop-3.3.6
     fi
 
@@ -62,7 +60,7 @@ download_and_extract_hadoop() {
     sleep 1
 
     # Extract Hadoop tar file
-    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~
+    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~ || {echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1;}
     log_and_pause
 
     echo -e "Successfully downloaded and extracted Hadoop!"
@@ -86,7 +84,6 @@ install_java() {
 # Function to remove existing Hadoop-related environment variables from .bashrc
 remove_existing_hadoop_env_variables() {
 
-    # echo "Removing existing Hadoop-related environment variables from .bashrc..."
     sed -i '/export JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\/usr\/lib\/jvm\/java-8-openjdk-amd64\/bin/d' ~/.bashrc
     sed -i '/export HADOOP_HOME=~/d' ~/.bashrc
@@ -407,7 +404,7 @@ stop_hadoop_services() {
     echo -e "\nStopping Hadoop services if any..."
     log_and_pause
 
-    stop-all.sh || { echo -e "\nError stopping Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
+    stop-all.sh || { echo -e "\nError in stopping Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
     log_and_pause
 }
 
@@ -430,7 +427,7 @@ start_hadoop_services() {
     echo -e "\nStarting Hadoop services..."
     log_and_pause
 
-    start-all.sh || { echo -e "\nError starting Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
+    start-all.sh || { echo -e "\nError in starting Hadoop services!! \nExiting....\n"; sleep 1.5; exit 1; }
 
     echo -e "\nHadoop services started successfully."
     log_and_pause
@@ -443,7 +440,7 @@ display_success_message() {
 
     echo "Please open your any browser and navigate to \"http://localhost:9870\""
     log_and_pause
-    sleep 2
+    sleep 1.5
 
     echo "Note:- When you restart your machine, run the following commands:"
     echo -e "sudo service ssh start\nstart-all.sh"
@@ -491,6 +488,9 @@ main() {
 
     # Display success message
     display_success_message
+
+    read -n 1 -s -r -p "Press any key to Exit..."
+    sleep 0.5
 }
 
 # Execute the main function
