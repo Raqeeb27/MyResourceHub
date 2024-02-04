@@ -351,14 +351,10 @@ setup_ssh_keys() {
     echo -e "\nSetting up SSH Keys....."
     log_and_pause
 
-    # Configure SSH to automatically accept new host keys
-    echo -e "Host localhost\n    StrictHostKeyChecking no" >> ~/.ssh/config
-    chmod 0600 ~/.ssh/config
-
     # Check if SSH key already exists
     if [ ! -f ~/.ssh/id_rsa ]; then
         # Generate SSH key without passphrase
-        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa        
+        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
     else
         echo -e "SSH key already exists! Skipping key generation.\n"
     fi
@@ -372,6 +368,10 @@ setup_ssh_keys() {
     fi
 
     chmod 0600 ~/.ssh/authorized_keys
+
+    # Configure SSH to automatically accept new host keys
+    echo -e "Host localhost\n    StrictHostKeyChecking no" >> ~/.ssh/config
+    chmod 0600 ~/.ssh/config
 
     sleep 1
     echo -e "\nSSH Keys setup Completed!"
