@@ -25,12 +25,12 @@ update_system(){
 ## --------------------------------------------------------------------------
 # Function to prompt user for download confirmation
 confirm_download() {
-    read -p "The Hadoop tar file is around 700MB in size. Do you want to proceed with the download? (Y/N): " choice
+    read -p "The Hadoop tar file is around 700MB in size. Do you want to proceed with the download? (Y/N): " -r choice
 
-    # Accept 'Y', 'YES' to confirm
-    case "$choice" in
-        [Yy]|[Yy][Ee][Ss]) return 0 ;;
-        *) return 1 ;;
+    # Convert the user input to lowercase for case-insensitive comparison
+    case "${choice,,}" in
+        y|yes|"") return 0 ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
+        *) return 1 ;;          # Any other input is considered negative
     esac
 }
 
@@ -62,7 +62,7 @@ download_and_extract_hadoop() {
     sleep 1
 
     # Extract Hadoop tar file
-    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz
+    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~
     log_and_pause
 
     echo -e "Successfully downloaded and extracted Hadoop!"
@@ -147,18 +147,18 @@ configure_hadoop_environment() {
     echo "export PDSH_RCMD_TYPE=ssh" >> ~/.bashrc
 
     # Configure Hadoop Environment variables for current session
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
-    export PATH=$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin 
-    export HADOOP_HOME=~/hadoop-3.3.6/ 
-    export PATH=$PATH:$HADOOP_HOME/bin 
-    export PATH=$PATH:$HADOOP_HOME/sbin 
-    export HADOOP_MAPRED_HOME=$HADOOP_HOME 
-    export YARN_HOME=$HADOOP_HOME 
-    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop 
-    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native 
-    export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native" 
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export PATH=$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin
+    export HADOOP_HOME=~/hadoop-3.3.6/
+    export PATH=$PATH:$HADOOP_HOME/bin
+    export PATH=$PATH:$HADOOP_HOME/sbin
+    export HADOOP_MAPRED_HOME=$HADOOP_HOME
+    export YARN_HOME=$HADOOP_HOME
+    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+    export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
     export HADOOP_STREAMING=$HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar
-    export HADOOP_LOG_DIR=$HADOOP_HOME/logs 
+    export HADOOP_LOG_DIR=$HADOOP_HOME/logs
     export PDSH_RCMD_TYPE=ssh
 
     # Check if the line is present in .bashrc
@@ -352,8 +352,8 @@ setup_ssh_keys() {
     log_and_pause
 
     # Configure SSH to automatically accept new host keys
-    # echo -e "Host localhost\n  StrictHostKeyChecking no" >> ~/.ssh/config
-    # chmod 0600 ~/.ssh/config
+    echo -e "Host localhost\n    StrictHostKeyChecking no" >> ~/.ssh/config
+    chmod 0600 ~/.ssh/config
 
     # Check if SSH key already exists
     if [ ! -f ~/.ssh/id_rsa ]; then
@@ -375,6 +375,17 @@ setup_ssh_keys() {
 
     sleep 1
     echo -e "\nSSH Keys setup Completed!"
+    log_and_pause
+}
+
+## --------------------------------------------------------------------------
+# Function to Start SSH service
+start_ssh_service(){
+    echo -e "\nStarting SSH service..."
+
+    sudo service ssh start || { echo -e "\nError: Failed to start SSH service. \nExiting..."; log_and_pause; exit 1; }
+
+    echo -e "\nSSH service started successfully!"
     log_and_pause
 }
 
@@ -472,6 +483,7 @@ main() {
     edit_hadoop_configs
     update_hadoop_env
     setup_ssh_keys
+    start_ssh_service
     create_hadoop_data_directories
     stop_hadoop_services
     format_hadoop_namenode
