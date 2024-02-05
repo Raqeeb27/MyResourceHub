@@ -10,15 +10,53 @@
 ## ===========================================================================
 ### Functions
 
-# Function to update system
-update_system(){
-    echo -e "\nUpdating System.....\n"
-    sleep 1
+#Function to print blank lines and sleep
+log_and_pause(){
+    sleep 2
+    echo -e "\n"
+}
 
-    sudo apt update && sudo apt upgrade -y
+# Function to determine Linux distribution
+detect_linux_distribution() {
+    if command -v apt &> /dev/null; then
+        LINUX_DISTRO="Ubuntu/Debian"
+    elif command -v pacman &> /dev/null; then
+        LINUX_DISTRO="Arch"
+    elif command -v paru &> /dev/null; then
+        LINUX_DISTRO="Arch"
+    elif command -v dnf &> /dev/null; then
+        LINUX_DISTRO="Fedora"
+    else
+        echo -e "\nUnsupported Linux distribution.\n\nExiting...\n"
+        exit 1
+    fi
+}
+
+# Function to install packages based on Linux distribution
+update_and_install_packages() {
+    echo -e "\nUpdating System and Installing wget, openssh and Java JDK 8....."
     log_and_pause
 
-    echo "System is now up to date!"
+    case "$LINUX_DISTRO" in
+        "Ubuntu/Debian")
+            sudo apt update && sudo apt upgrade -y;
+            echo;
+            sudo apt install -y openjdk-8-jdk wget ssh openssh-server
+            ;;
+        "Arch")
+            sudo pacman -Syu --noconfirm || sudo paru -Syu --noconfirm;
+            echo;
+            sudo pacman -Sy --noconfirm jdk8-openjdk wget openssh || sudo paru -Sy --noconfirm jdk8-openjdk wget openssh;
+            ;;
+        "Fedora")
+            sudo dnf upgrade -y;
+            echo;
+            sudo dnf install -y java-1.8.0-openjdk wget openssh-server
+            ;;
+    esac
+    log_and_pause
+
+    echo "System is now up to date and packages are installed successfully"
     log_and_pause
 }
 
@@ -40,7 +78,7 @@ download_and_extract_hadoop() {
     log_and_pause
 
     # Call confirm_download to check if the user wants to proceed
-    confirm_download || { sleep 1; echo "Aborting Hadoop installation..."; sleep 1; echo -e "Exiting...\n"; sleep 1; exit 1; }
+    confirm_download || { sleep 1; echo -e "\nAborting Hadoop installation..."; sleep 1; echo -e "Exiting...\n"; sleep 1; exit 1; }
 
     # Check if Hadoop tar file already exists in Downloads
     if [ -f ~/Downloads/hadoop-3.3.6.tar.gz ]; then
@@ -48,7 +86,7 @@ download_and_extract_hadoop() {
     fi
 
     # Download Hadoop tar file
-    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads || {echo -e "\nAn error occured while downloading Hadoop-3.3.6\n\nExiting...\n"; sleep 1; exit 1;}
+    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads || { echo -e "\nAn error occured while downloading Hadoop-3.3.6\n\nExiting...\n"; sleep 1; exit 1; }
 
     # Check if Hadoop-3.3.6 directory already exists
     if [ -d ~/hadoop-3.3.6 ]; then
@@ -60,7 +98,7 @@ download_and_extract_hadoop() {
     sleep 1
 
     # Extract Hadoop tar file
-    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~ || {echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1;}
+    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~ || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
     log_and_pause
 
     echo -e "Successfully downloaded and extracted Hadoop!"
@@ -68,22 +106,8 @@ download_and_extract_hadoop() {
 }
 
 ## --------------------------------------------------------------------------
-# Function to install Java JDK 8
-install_java() {
-    echo -e "\nInstalling Java JDK 8...\n"
-
-    sleep 1
-    sudo apt-get install openjdk-8-jdk -y
-    log_and_pause
-
-    echo "Java JDK 8 successfully installed!"
-    log_and_pause
-}
-
-## --------------------------------------------------------------------------
 # Function to remove existing Hadoop-related environment variables from .bashrc
 remove_existing_hadoop_env_variables() {
-
     sed -i '/export JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\/usr\/lib\/jvm\/java-8-openjdk-amd64\/bin/d' ~/.bashrc
     sed -i '/export HADOOP_HOME=~/d' ~/.bashrc
@@ -97,7 +121,6 @@ remove_existing_hadoop_env_variables() {
     sed -i '/export HADOOP_STREAMING=\$HADOOP_HOME\/share\/hadoop\/tools\/lib\/hadoop-streaming-3.3.6.jar/d' ~/.bashrc
     sed -i '/export HADOOP_LOG_DIR=\$HADOOP_HOME\/logs/d' ~/.bashrc
     sed -i '/export PDSH_RCMD_TYPE=ssh/d' ~/.bashrc
-    # echo "Existing Hadoop-related environment variables removed from .bashrc."
 }
 
 ## --------------------------------------------------------------------------
@@ -110,19 +133,6 @@ configure_java_environment() {
 
     log_and_pause
     echo "Configured!"
-    log_and_pause
-}
-
-## --------------------------------------------------------------------------
-# Function to install SSH
-install_ssh() {
-    echo -e "\nInstalling SSH..."
-    log_and_pause
-
-    sudo apt-get install ssh -y
-    log_and_pause
-
-    echo -e "SSH is installed successfully!"
     log_and_pause
 }
 
@@ -450,13 +460,6 @@ display_success_message() {
     sleep 1
 }
 
-## --------------------------------------------------------------------------
-#Function to print blank lines and sleep
-log_and_pause(){
-    sleep 2
-    echo -e "\n"
-}
-
 ### ===========================================================================
 ## Main function to execute all the steps
 #
@@ -470,12 +473,11 @@ main() {
     log_and_pause
 
     # Run functions in sequence
-    update_system
+    detect_linux_distribution
+    update_and_install_packages
     download_and_extract_hadoop
-    install_java
     remove_existing_hadoop_env_variables
     configure_java_environment
-    install_ssh
     configure_hadoop_environment
     edit_hadoop_configs
     update_hadoop_env
