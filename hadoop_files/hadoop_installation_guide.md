@@ -1,7 +1,7 @@
 # Hadoop-3.3.6 Installation Guide
 
 ## Overview
-This guide provides step-by-step instructions using the `hadoop-setup.sh` script to automate the installation of Hadoop-3.3.6 on a Debian-based Linux distribution. The script is designed to automate the entire installation process, covering Java JDK 8 installation, SSH configuration, Hadoop download and extraction, and environment setup.
+This guide provides step-by-step instructions using the `hadoop-setup.sh` script to automate the installation of Hadoop-3.3.6 on a Arch, Fedora and Ubuntu/Debian-based Linux distributions. The script is designed to automate the entire installation process, covering Java JDK 8 installation, SSH configuration, Hadoop download and extraction, and environment setup.
 
 ## Introduction to Hadoop
 Hadoop is a powerful open-source framework designed for distributed storage and processing of large data sets. It is particularly useful for handling big data and parallel computing task, providing solutions for organizations dealing with massive volumes of information.
@@ -16,8 +16,8 @@ By installing Hadoop, you unlock the potential of distributed computing, making 
 ## Prerequisites
 Before you begin, ensure that you have the following prerequisites:
 
-- Ubuntu or a Debian-based Linux distribution
-- Stable Internet connection for downloading Hadoop
+- Arch or Fedora or Ubuntu or a Debian-based Linux distribution
+- Stable Internet connection for downloading Hadoop-3.3.6
 
 ## Installation Steps
 

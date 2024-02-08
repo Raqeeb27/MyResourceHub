@@ -34,7 +34,7 @@ detect_linux_distribution() {
 
 # Function to install packages based on Linux distribution
 update_and_install_packages() {
-    echo -e "\nUpdating System and Installing wget, openssh and Java JDK 8....."
+    echo -e "\nUpdating System and Installing Dependencies (openssh wget Java JDK-8)...."
     log_and_pause
 
     case "$LINUX_DISTRO" in

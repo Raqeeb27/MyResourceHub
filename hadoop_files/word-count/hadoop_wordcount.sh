@@ -219,7 +219,7 @@ setup_hdfs_wordcount_dir(){
     hadoop fs -mkdir -p /WordCount/Input
     
     echo
-    echo "Successfully created \"WordCount\" and \"Input\" directories in HDFS.\n"
+    echo -e "Successfully created \"WordCount\" and \"Input\" directories in HDFS.\n"
     sleep 1
     
     # upload local 'input.txt' file to Input directory in HDFS
