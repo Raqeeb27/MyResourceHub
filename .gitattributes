@@ -1,2 +1,3 @@
-hadoop_files/hadoop_install.sh -crlf
+hadoop_files/hadoop-setup.sh -crlf
+hadoop_files/pig-setup.sh -crlf
 starship_install.sh -crlf
