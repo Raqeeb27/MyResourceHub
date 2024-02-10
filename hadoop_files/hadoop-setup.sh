@@ -121,6 +121,9 @@ remove_existing_hadoop_env_variables() {
     sed -i '/export HADOOP_STREAMING=\$HADOOP_HOME\/share\/hadoop\/tools\/lib\/hadoop-streaming-3.3.6.jar/d' ~/.bashrc
     sed -i '/export HADOOP_LOG_DIR=\$HADOOP_HOME\/logs/d' ~/.bashrc
     sed -i '/export PDSH_RCMD_TYPE=ssh/d' ~/.bashrc
+    sed -i '/export PIG_HOME=\$HADOOP_HOME\/pig-0.17.0/d' ~/.bashrc
+    sed -i '/export PATH=\$PATH:\$PIG_HOME\/bin/d' ~/.bashrc
+    sed -i '/export PIG_CLASSPATH=\$PIG_HOME\/conf/d' ~/.bashrc
 }
 
 ## --------------------------------------------------------------------------
