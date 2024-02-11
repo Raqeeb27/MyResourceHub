@@ -494,6 +494,7 @@ main() {
     # Display success message
     display_success_message
 
+    echo
     read -n 1 -s -r -p "Press any key to Exit..."
     sleep 0.5
 }

@@ -5,18 +5,26 @@
 # Author: Mohammed Abdul Raqeeb
 # Date: 10/02/2024
 
-# ------- Hadoop PIG Setup Script -------
+# ------- Automated PIG Setup Script -------
 
 ## ===========================================================================
 ### Functions
 
-# Function to check hadoop installation
+
+#Function to print blank lines and sleep
+log_and_pause(){
+    sleep 2
+    echo -e "\n"
+}
+
+## --------------------------------------------------------------------------
+# Function to check Hadoop installation
 check_hadoop_availability(){
     if ! command -v hadoop &> /dev/null; then
         echo -e "Error: 'hadoop' command not found. Please make sure Hadoop is installed and in your PATH.\n"
         sleep 1
 
-        echo -e "Run the below command to install and configure Hadoop if isn't installed:\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit\n"
+        echo -e "Run the below command to install and configure Hadoop if isn't installed:\n\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit\n"
         sleep 1
         
         echo -e "Exiting....\n"
@@ -25,20 +33,53 @@ check_hadoop_availability(){
     fi
 }
 
-remove_bsdgames_if_installed(){
-    # Check if bsdgames package is installed
-    if dpkg -l | grep -q "^ii.*bsdgames"; then
-        # Remove bsdgames package
-        sudo apt-get remove --purge -y bsdgames
-        echo -e "\n'bsdgames' package has been removed.\n"
+## --------------------------------------------------------------------------
+# Function to determine Linux distribution
+detect_linux_distribution() {
+    if command -v apt &> /dev/null; then
+        LINUX_DISTRO="Ubuntu/Debian"
+    elif command -v pacman &> /dev/null; then
+        LINUX_DISTRO="Arch"
+    elif command -v paru &> /dev/null; then
+        LINUX_DISTRO="Arch"
+    elif command -v dnf &> /dev/null; then
+        LINUX_DISTRO="Fedora"
+    else
+        echo -e "\nUnsupported Linux distribution.\n\nExiting...\n"
+        exit 1
     fi
-
 }
 
-#Function to print blank lines and sleep
-log_and_pause(){
-    sleep 2
-    echo -e "\n"
+## --------------------------------------------------------------------------
+# Function to remove bsdgames package based on Linux distribution
+remove_bsdgames_if_installed() {
+    case "$LINUX_DISTRO" in
+        "Ubuntu/Debian")
+            # Check if bsdgames package is installed
+            if dpkg -l | grep -q "^ii.*bsdgames"; then
+                # Remove bsdgames package
+                sudo apt-get remove --purge -y bsdgames && sudo apt autoremove -y && log_and_pause && echo -e "\n'bsdgames' package has been removed.\n" || echo "Failed to remove 'bsdgames' package."
+            fi
+            ;;
+        "Arch")
+            if pacman -Qs bsd-games >/dev/null 2>&1; then
+                # Remove bsd-games package
+                sudo pacman -Rs --noconfirm bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."                
+            elif paru -Qs bsd-games >/dev/null 2>&1; then
+                # Remove bsd-games package
+                paru -Rns --noconfirm bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."
+            fi
+            ;;
+        "Fedora")
+            if dnf list installed bsd-games >/dev/null 2>&1; then
+                # Remove bsd-games package
+                sudo dnf remove -y bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."
+            fi
+            ;;
+        *)
+            echo "Unsupported distribution."
+            ;;
+    esac
 }
 
 ## --------------------------------------------------------------------------
@@ -88,7 +129,8 @@ confirm_download() {
     esac
 }
 
-# Function to download and extract Hadoop
+## --------------------------------------------------------------------------
+# Function to download and extract PIG
 download_and_extract_pig() {
     echo -e "\nDownloading and extracting Pig..."
     log_and_pause
@@ -96,15 +138,15 @@ download_and_extract_pig() {
     # Call confirm_download to check if the user wants to proceed
     confirm_download || { sleep 1; echo -e "\nAborting Pig installation..."; sleep 1; echo -e "Exiting...\n"; sleep 1; exit 1; }
 
-    # Check if Hadoop tar file already exists in Downloads
+    # Check if pig tar file already exists in Downloads
     if [ -f ~/hadoop-3.3.6/pig-0.17.0.tar.gz ]; then
         rm ~/hadoop-3.3.6/pig-0.17.0.tar.gz
     fi
 
-    # Download Hadoop tar file
+    # Download pig tar file
     wget https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz -P ~/hadoop-3.3.6 || { echo -e "\nAn error occured while downloading PIG-0.17.0\n\nExiting...\n"; sleep 1; exit 1; }
 
-    # Check if Hadoop-3.3.6 directory already exists
+    # Check if pig-0.17.0 directory already exists
     if [ -d ~/hadoop-3.3.6/pig-0.17.0 ]; then
         rm -rf ~/hadoop-3.3.6/pig-0.17.0
     fi
@@ -113,7 +155,7 @@ download_and_extract_pig() {
     echo -e "Extracting pig-0.17.0.tar.gz ....\n "
     sleep 1
 
-    # Extract Hadoop tar file
+    # Extract pig tar file
     tar -zxvf ~/hadoop-3.3.6/pig-0.17.0.tar.gz -C ~/hadoop-3.3.6 || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
     log_and_pause
 
@@ -121,6 +163,8 @@ download_and_extract_pig() {
     log_and_pause
 }
 
+## --------------------------------------------------------------------------
+# Function to remove pig existing environment variables
 remove_existing_pig_env_variables() {
     sed -i '/export PIG_HOME=\$HADOOP_HOME\/pig-0.17.0/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\$PIG_HOME\/bin/d' ~/.bashrc
@@ -180,6 +224,8 @@ main() {
 
     # Run functions in sequence
     check_hadoop_availability
+    detect_linux_distribution
+    remove_bsdgames_if_installed
     start_ssh_service
     restart_hadoop_services
     download_and_extract_pig
@@ -189,7 +235,7 @@ main() {
     # Display success message
     display_success_message
 
-
+    echo
     read -n 1 -s -r -p "Press any key to Exit..."
     sleep 0.5
 }

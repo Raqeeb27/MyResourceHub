@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Script: install_starship.sh
-# Description: Install Starship prompt with Pastel Powerline preset, configure terminals, and set fonts.
+# Script: starship-install.sh
+# Description: Install Starship prompt with any desired preset, configure terminals, and set fonts.
 # Author: Mohammed Abdul Raqeeb
 # Date: 31/01/2024
 
@@ -11,6 +11,13 @@
 ## ===========================================================================
 ### Functions
 
+#Function to print blank lines and sleep
+log_and_pause(){
+    sleep 2
+    echo -e "\n"
+}
+
+## --------------------------------------------------------------------------
 # Function to install required dependencies
 install_dependencies() {
     echo -e "\nInstalling dependencies..."
@@ -18,8 +25,22 @@ install_dependencies() {
 
     sudo apt install curl wget unzip -y
 
-    echo
-    sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+    log_and_pause
+}
+
+## --------------------------------------------------------------------------
+# Function to install Starship
+install_starship(){
+    # Check if Starship is installed
+    if ! command -v starship &>/dev/null; then
+        echo "Starship not found, installing..."
+        log_and_pause
+        
+        # Install Starship
+        sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+    else
+        echo "Starship is already installed.\n"
+    fi
 
     log_and_pause
 }
@@ -27,21 +48,21 @@ install_dependencies() {
 ## --------------------------------------------------------------------------
 # Function to prompt user for preset selection
 select_starship_preset() {
-    echo -e "Select a Starship prompt preset:\n"
+    echo -e "\nSelect a Starship prompt preset:\n"
     
-    echo "1. Nerd Font Symbols"
-    echo "2. No Nerd Font"
-    echo "3. Bracketed Segments"
-    echo "4. Plain Text Symbols"
-    echo "5. No Runtime Versions"
-    echo "6. No Empty Icons"
-    echo "7. Pure Preset"
-    echo "8. Pastel Powerline"
-    echo "9. Tokyo Night"
-    echo "10. Gruvbox Rainbow"
-    echo -e "11. None, Exit\n"
+    echo " 1. Nerd Font Symbols"
+    echo " 2. No Nerd Font"
+    echo " 3. Bracketed Segments"
+    echo " 4. Plain Text Symbols"
+    echo " 5. No Runtime Versions"
+    echo " 6. No Empty Icons"
+    echo " 7. Pure Preset"
+    echo " 8. Pastel Powerline"
+    echo " 9. Tokyo Night"
+    echo " 10. Gruvbox Rainbow"
+    echo -e " 11. None, Exit\n"
 
-    sleep 1.5
+    sleep 1
     read -p "Enter the number corresponding to your choice: " choice
 
     case $choice in
@@ -59,11 +80,12 @@ select_starship_preset() {
         *) echo -e "\nInvalid choice. Exiting..."; log_and_pause; exit 1 ;;
     esac
 }
-## -------------------------------
+
+## --------------------------------------------------------------------------
 # Function to apply selected Starship preset
 apply_starship_preset() {
     local preset=$1
-    echo -e "\n\nApplying Starship $preset preset..."
+    echo -e "\n\n\nApplying Starship $preset preset..."
     log_and_pause
 
     mkdir -p ~/.config && touch ~/.config/starship.toml
@@ -71,8 +93,9 @@ apply_starship_preset() {
     
     echo -e "Starship $preset preset applied successfully.\n"
 }
-## -------------------------------
-# Function to create starship configuration file
+
+## --------------------------------------------------------------------------
+# Function to setup starship 
 setup_starship_config() {
     echo "Setting up starship configuration file..."
     log_and_pause
@@ -81,32 +104,31 @@ setup_starship_config() {
         echo "Starship is already configured."
         read -p "Do you want to configure a different preset? (Y/N): " choice
 
-        case "$choice" in
-            [Yy]|[Yy][Ee][Ss])
-                log_and_pause ; select_starship_preset ;;
+        # Convert the user input to lowercase for case-insensitive comparison
+        case "${choice,,}" in
+            y|yes|"")  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
+                sleep 1 ; select_starship_preset ;;
             *)
-                echo -e "\nExiting without making changes."; log_and_pause; exit 1 ;;
+                echo -e "\nConfiguration file is unchanged." ;;
         esac
-    else
-        select_starship_preset
     fi
-    
+
     log_and_pause
 }
 
 ## --------------------------------------------------------------------------
 # Function to add starship init bash to .bashrc
 configure_bashrc() {
-    echo "Configuring the ~.bashrc file..."
+    echo "Configuring the ~/.bashrc file..."
     log_and_pause
 
     if [ ! -f ~/.bashrc ]; then
-        touch ~.bashrc
+        touch ~/.bashrc
     fi
 
-    sed -i '/PROMPT_COMMAND="echo"/d' ~/.bashrc
+    sed -i '/export PROMPT_COMMAND="echo"/d' ~/.bashrc
     sed -i '/eval "$(starship init bash)"/d' ~/.bashrc
-    echo -e '\nPROMPT_COMMAND="echo"\neval "$(starship init bash)"' >> ~/.bashrc
+    echo -e '\nexport PROMPT_COMMAND="echo"\neval "$(starship init bash)"' >> ~/.bashrc
 
     echo "Done!"
     log_and_pause
@@ -129,43 +151,76 @@ configure_fish() {
 }
 
 ## --------------------------------------------------------------------------
-# Function to add starship init zsh to .zshrc
-configure_zshrc() {
+# Function to confirm changes to .zshrc file
+confirm_zshrc(){
     if [ -f ~/.zshrc ]; then
-
-        echo -e "\nConfiguring the  ~/.zshrc file..."
-        log_and_pause
-
-        sed -i '/eval "$(starship init zsh)"/d' ~/.zshrc
-        echo -e "\neval \"$(starship init zsh)\"" >> ~/.zshrc
-
-        echo "Done!"
-        log_and_pause
+        read -p "Do you want to configure the ~/.zshrc file? (y/n, default: yes): " response
+        
+        # Convert the user input to lowercase for case-insensitive comparison
+        case "${response,,}" in
+            y|yes|"") configure_zshrc ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
+            *) echo -e "\nSkipped .zshrc configuration."; log_and_pause ;;    # Any other input is considered negative
+        esac
     fi
 }
 
 ## --------------------------------------------------------------------------
-# Function to install Nerd Font for Pastel Powerline preset
-install_nerd_font() {
-    echo -e "\nInstalling Nerd Font for preset..."
+# Function to add starship init zsh to .zshrc file
+configure_zshrc() {
+
+    echo -e "\nConfiguring the  ~/.zshrc file..."
     log_and_pause
 
-    # Download CascadiaCode Nerd Font
-    echo "Downloading CascadiaCode Nerd Font..."
+    sed -i '/eval "$(starship init zsh)"/d' ~/.zshrc
+    echo -e "\neval \"$(starship init zsh)\"" >> ~/.zshrc
+
+    echo "Done!"
+    log_and_pause
+    
+}
+
+## --------------------------------------------------------------------------
+# Function to check Caskaydia Cove Nerd font if installed
+check_caskaydia_font() {
+    echo -e "\nChecking whether Caskaydia Cove Nerd font is installed..."
+    log_and_pause
+
+    if ls ~/.local/share/fonts/ | grep Caskaydia > /dev/null; then
+        echo -e "Caskaydia Cove Nerd font is already installed...\n"
+    else
+        # Install Nerd Font
+        download_nerd_font
+        unzip_nerd_font
+        update_fonts_dir
+    fi
+    
+    log_and_pause
+}
+
+## --------------------------------------------------------------------------
+# Function to download Nerd Font for Starship preset
+download_nerd_font() {
+    echo "Downloading CascadiaCode Nerd Font for Preset..."
     log_and_pause
 
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -P ~
     log_and_pause
+}
 
-    # Unzip the downloaded font file
+## --------------------------------------------------------------------------
+# Function to download Nerd Font for Starship preset
+unzip_nerd_font() {
     echo "Unzipping CascadiaCode.zip..."
     log_and_pause
 
     mkdir ~/CascadiaCode
     unzip ~/CascadiaCode.zip -d ~/CascadiaCode
     log_and_pause
+}
 
-    # Create the fonts directory if it doesn't exist
+## --------------------------------------------------------------------------
+# Function to download Nerd Font for Starship preset
+update_fonts_dir() {
     echo -e "\nUpdating ~/.local/share/fonts/ directory..."
     log_and_pause
 
@@ -173,13 +228,14 @@ install_nerd_font() {
     mv ~/CascadiaCode/*.ttf ~/.local/share/fonts/
 
     echo "Done!"
-    log_and_pause
 
-    # Remove the downloaded zip file
-    # echo "Removing CascadiaCode.zip..."
     rm -r ~/CascadiaCode.zip
     rm -rf ~/CascadiaCode
+}
 
+## --------------------------------------------------------------------------
+# Function to download Nerd Font for Starship preset
+update_font_cache() {
     # Update the font cache
     echo "Updating font cache..."
     log_and_pause
@@ -200,12 +256,6 @@ install_nerd_font() {
     # (This step may vary depending on the terminal emulator)
 # }
 
-## --------------------------------------------------------------------------
-#Function to print blank lines and sleep
-log_and_pause(){
-    sleep 2
-    echo -e "\n"
-}
 
 ### ===========================================================================
 ## Main function to execute all the steps
@@ -220,14 +270,18 @@ main() {
     log_and_pause
 
     install_dependencies
+    install_starship
     setup_starship_config
     configure_bashrc
     configure_fish
-    configure_zshrc
-    install_nerd_font
+    confirm_zshrc
+    check_caskaydia_font
+    update_font_cache
 
-    echo -e "\nStarship Installation Successfull!!!\n\n\n----- SUCCESS -----"
-    log_and_pause
+    echo -e "\nStarship Installation Successfull!!!\n\n\n----- SUCCESS -----\n\n"
+
+    read -n 1 -s -r -p "Press any key to Exit..."
+    sleep 0.5
 }
 
 # Execute the main function
