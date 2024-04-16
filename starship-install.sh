@@ -39,7 +39,7 @@ install_starship(){
         # Install Starship
         sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
     else
-        echo "Starship is already installed.\n"
+        echo -e "Starship is already installed.\n"
     fi
 
     log_and_pause
@@ -111,6 +111,8 @@ setup_starship_config() {
             *)
                 echo -e "\nConfiguration file is unchanged." ;;
         esac
+    else
+        select_starship_preset
     fi
 
     log_and_pause
@@ -185,6 +187,8 @@ check_caskaydia_font() {
     echo -e "\nChecking whether Caskaydia Cove Nerd font is installed..."
     log_and_pause
 
+    mkdir -p ~/.local/share/fonts/
+
     if ls ~/.local/share/fonts/ | grep Caskaydia > /dev/null; then
         echo -e "Caskaydia Cove Nerd font is already installed...\n"
     else
@@ -224,7 +228,6 @@ update_fonts_dir() {
     echo -e "\nUpdating ~/.local/share/fonts/ directory..."
     log_and_pause
 
-    mkdir -p ~/.local/share/fonts/
     mv ~/CascadiaCode/*.ttf ~/.local/share/fonts/
 
     echo "Done!"
