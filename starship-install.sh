@@ -60,7 +60,8 @@ select_starship_preset() {
     echo " 8. Pastel Powerline"
     echo " 9. Tokyo Night"
     echo " 10. Gruvbox Rainbow"
-    echo -e " 11. None, Exit\n"
+    echo " 11. Custom Starship Configuration"
+    echo -e " 12. None, Exit\n"
 
     sleep 1
     read -p "Enter the number corresponding to your choice: " choice
@@ -76,9 +77,177 @@ select_starship_preset() {
         8) apply_starship_preset "pastel-powerline" ;;
         9) apply_starship_preset "tokyo-night" ;;
         10) apply_starship_preset "gruvbox-rainbow" ;;
-        11) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
+        11) custom_starship_configuration ;;
+        12) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
         *) echo -e "\nInvalid choice. Exiting..."; log_and_pause; exit 1 ;;
     esac
+}
+
+custom_starship_configuration(){
+    echo -e "\n\n\nApplying Custom Starship preset..."
+    log_and_pause
+
+    mkdir -p ~/.config && touch ~/.config/starship.toml
+    
+    cat << 'EOF' > ~/.config/starship.toml
+format = """
+[](#B54BBB)\
+$os\
+$username\
+[](fg:#B54BBB bg:#FF758E)\
+$directory\
+[](fg:#FF758E bg:#FFB366)\
+$git_branch\
+$git_status\
+[](fg:#FFB366 bg:#00BFFF)\
+$c\
+$elixir\
+$elm\
+$golang\
+$gradle\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$python\
+$rust\
+$scala\
+[](fg:#00BFFF bg:#4A90E2)\
+$time\
+[](fg:#4A90E2)\
+$cmd_duration\
+[\n  ](fg:#7FFF7F)\
+"""
+#  #9A348E
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[username]
+show_always = true
+style_user = "bg:#B54BBB fg:#FFFFFF bold"
+style_root = "bg:#B54BBB fg:#FFFFFF bold"
+format = '[$user ]($style)'
+disabled = false
+
+# An alternative to the username module which displays a symbol that
+# represents the current operating system
+[os]
+style = "bg:#B54BBB"
+disabled = true # Disabled by default
+
+[directory]#FF758E #DA627D
+style = "bg:#FF758E fg:#FFFFFF bold"
+format = "[ $path ]($style)"
+truncation_length = 5
+truncation_symbol = "…/"
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+[c]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:#86BBD8 fg:#FFFFFF"
+format = '[ $symbol $context ]($style) $path'
+
+[elixir]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[elm]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[git_branch]
+symbol = ""
+style = "bg:#FFB366 fg:#FFFFFF bold"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:#FFB366 fg:#FFFFFF bold"
+format = '[$all_status$ahead_behind ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[gradle]
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[haskell]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = ""
+style = "bg:#00BFFF fg:#FFFFFF bold"
+format = '[ $symbol ]($style)'
+
+[julia]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[nim]
+symbol = "󰆥 "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+ 
+[python]
+symbol = ""
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[scala]
+symbol = " "
+style = "bg:#00BFFF fg:#FFFFFF"
+format = '[ $symbol ($version) ]($style)'
+
+[time] #33658A
+disabled = false
+time_format = "%I:%M %p" # Hour:Minute AM/PM Format
+style = "bg:#4A90E2 fg:#FFFFFF bold"
+format = '[ ♥ $time ]($style)'
+
+[cmd_duration]
+style = " fg:#00FF00 bold"
+format = '[   $duration ]($style)'
+min_time = 300
+EOF
+
+    echo -e "Custom Starship preset applied successfully.\n"
 }
 
 ## --------------------------------------------------------------------------
@@ -119,47 +288,88 @@ setup_starship_config() {
 }
 
 ## --------------------------------------------------------------------------
-# Function to add starship init bash to .bashrc
+# Function to confirm changes to ~/.bashrc file
+confirm_bashrc(){
+    if [ -f ~/.bashrc ]; then
+        # Check if the ~/.bashrc file contains the line 'eval "$(starship init bash)"'
+        if grep -q 'eval "$(starship init bash)"' ~/.bashrc; then
+            echo -e "Starship is already configured in ~/.bashrc\n"
+            return
+        fi
+
+        read -p "Do you want to configure the ~/.bashrc file? (y/n, default: yes): " bash_response
+        
+        # Convert the user input to lowercase for case-insensitive comparison
+        case "${bash_response,,}" in
+            y|yes|"") configure_bashrc ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
+            *) echo -e "\nSkipped ~/.bashrc configuration."; log_and_pause ;;    # Any other input is considered negative
+        esac
+    fi
+}
+
+## --------------------------------------------------------------------------
+# Function to configure Starship in ~/.bashrc
 configure_bashrc() {
     echo "Configuring the ~/.bashrc file..."
     log_and_pause
-
-    if [ ! -f ~/.bashrc ]; then
-        touch ~/.bashrc
-    fi
 
     sed -i '/export PROMPT_COMMAND="echo"/d' ~/.bashrc
     sed -i '/eval "$(starship init bash)"/d' ~/.bashrc
     echo -e '\nexport PROMPT_COMMAND="echo"\neval "$(starship init bash)"' >> ~/.bashrc
 
     echo "Done!"
+    font_cache=1
     log_and_pause
 }
 
 ## --------------------------------------------------------------------------
-# Function to add starship init fish to config.fish
-configure_fish() {
+# Function to confirm changes to config.fish file
+confirm_fish(){
     if [ -f ~/.config/fish/config.fish ]; then
+        # Check if the ~/.config/fish/config.fish file contains the line 'starship init fish | source'
+        if grep -q 'starship init fish | source' ~/.config/fish/config.fish; then
+            echo -e "Starship is already configured in ~/.config/fish/config.fish\n"
+            return
+        fi
 
-        echo -e "\nConfiguring the ~/.config/fish/config.fish file..."
-        log_and_pause
-
-        sed -i '/starship init fish | source/d' ~/.config/fish/config.fish
-        echo -e "\nstarship init fish | source" >> ~/.config/fish/config.fish
-
-        echo "Done!"
-        log_and_pause
+        read -p "Do you want to configure the ~/.config/fish/config.fish file? (y/n, default: yes): " fish_response
+        
+        # Convert the user input to lowercase for case-insensitive comparison
+        case "${fish_response,,}" in
+            y|yes|"") configure_fish ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
+            *) echo -e "\nSkipped config.fish configuration."; log_and_pause ;;    # Any other input is considered negative
+        esac
     fi
 }
 
 ## --------------------------------------------------------------------------
-# Function to confirm changes to .zshrc file
+# Function to configure Starship in config.fish file
+configure_fish(){
+    echo -e "\nConfiguring the ~/.config/fish/config.fish file..."
+    log_and_pause
+
+    sed -i '/starship init fish | source/d' ~/.config/fish/config.fish
+    echo -e "\nstarship init fish | source" >> ~/.config/fish/config.fish
+
+    echo "Done!"
+    font_cache=1
+    log_and_pause
+}
+
+## --------------------------------------------------------------------------
+# Function to confirm changes to ~/.zshrc file
 confirm_zshrc(){
     if [ -f ~/.zshrc ]; then
-        read -p "Do you want to configure the ~/.zshrc file? (y/n, default: yes): " response
+        # Check if the ~/.zshrc file contains the line 'eval "$(starship init zsh)"'
+        if grep -q 'eval "$(starship init zsh)"' ~/.zshrc; then
+            echo -e "Starship is already configured in ~/.zshrc\n"
+            return
+        fi
+
+        read -p "Do you want to configure the ~/.zshrc file? (y/n, default: yes): " zsh_response
         
         # Convert the user input to lowercase for case-insensitive comparison
-        case "${response,,}" in
+        case "${zsh_response,,}" in
             y|yes|"") configure_zshrc ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
             *) echo -e "\nSkipped .zshrc configuration."; log_and_pause ;;    # Any other input is considered negative
         esac
@@ -167,9 +377,8 @@ confirm_zshrc(){
 }
 
 ## --------------------------------------------------------------------------
-# Function to add starship init zsh to .zshrc file
+# Function to configure Starship in ~/.zshrc file
 configure_zshrc() {
-
     echo -e "\nConfiguring the  ~/.zshrc file..."
     log_and_pause
 
@@ -177,6 +386,7 @@ configure_zshrc() {
     echo -e "\neval \"$(starship init zsh)\"" >> ~/.zshrc
 
     echo "Done!"
+    font_cache=1
     log_and_pause
     
 }
@@ -207,7 +417,7 @@ download_nerd_font() {
     echo "Downloading CascadiaCode Nerd Font for Preset..."
     log_and_pause
 
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -P ~
+    wget -N https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -P ~
     log_and_pause
 }
 
@@ -239,16 +449,18 @@ update_fonts_dir() {
 ## --------------------------------------------------------------------------
 # Function to download Nerd Font for Starship preset
 update_font_cache() {
-    # Update the font cache
-    echo "Updating font cache..."
-    log_and_pause
+    if [ "$font_cache" = "1" ]; then
+        # Update the font cache
+        echo "Updating font cache..."
+        log_and_pause
 
-    fc-cache -f -v
-    log_and_pause
-    sleep 1
+        fc-cache -f -v
+        log_and_pause
+        sleep 1
 
-    echo -e "\nInstallation Completed."
-    log_and_pause
+        echo -e "\nInstallation Completed."
+        log_and_pause
+    fi
 }
 
 ## --------------------------------------------------------------------------
@@ -269,14 +481,17 @@ main() {
 
     clear
 
+    # Assigning font_cache variable
+    font_cache=0
+
     sudo echo -e "\n------- Automated Starship Installation Script -------"
     log_and_pause
 
     install_dependencies
     install_starship
     setup_starship_config
-    configure_bashrc
-    configure_fish
+    confirm_bashrc
+    confirm_fish
     confirm_zshrc
     check_caskaydia_font
     update_font_cache
