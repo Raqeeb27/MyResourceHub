@@ -18,12 +18,43 @@ log_and_pause(){
 }
 
 ## --------------------------------------------------------------------------
+# Function to determine the distro
+determine_distro() {
+    # Check for distribution type
+    if [ -d ~/.termux ]; then
+        distro="android"
+    elif [ -f /etc/arch-release ]; then
+        distro="arch"
+    elif [ -f /etc/debian_version ]; then
+        distro="debian"
+    elif [ -f /etc/fedora-release ]; then
+        distro="fedora"
+    else
+        echo "Unsupported distribution."
+        exit 1
+    fi
+}
+
+## --------------------------------------------------------------------------
 # Function to install required dependencies
 install_dependencies() {
     echo -e "\nInstalling dependencies..."
     log_and_pause
 
-    sudo apt install curl wget unzip -y
+    case $distro in
+        "android")
+            pkg install -y curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            ;;
+        "arch")
+            sudo pacman -Sy --noconfirm curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            ;;
+        "debian")
+            sudo apt install curl wget unzip -y || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            ;;
+        "fedora")
+            sudo dnf install curl wget unzip -y || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            ;;
+    esac
 
     log_and_pause
 }
@@ -35,9 +66,21 @@ install_starship(){
     if ! command -v starship &>/dev/null; then
         echo "Starship not found, installing..."
         log_and_pause
-        
-        # Install Starship
-        sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+        # Open a new terminal window to perform the update interactively
+        case $distro in
+            "arch")
+                sudo pacman -Sy --noconfirm starship || { echo "Error: Starship installation failed."; exit 1 ;}
+                ;;
+            "debian")
+                sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+                ;;
+            "fedora")
+                sudo curl -fsSL https://starship.rs/install.sh | bash -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+                ;;
+            "android")
+                pkg install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
+                ;;
+        esac
     else
         echo -e "Starship is already installed.\n"
     fi
@@ -243,7 +286,7 @@ format = '[ ♥ $time ]($style)'
 
 [cmd_duration]
 style = " fg:#00FF00 bold"
-format = '[   $duration ]($style)'
+format = '[   $duration ]($style)'
 min_time = 300
 EOF
 
@@ -484,9 +527,10 @@ main() {
     # Assigning font_cache variable
     font_cache=0
 
-    sudo echo -e "\n------- Automated Starship Installation Script -------"
+    echo -e "\n------- Automated Starship Installation Script -------"
     log_and_pause
 
+    determine_distro
     install_dependencies
     install_starship
     setup_starship_config

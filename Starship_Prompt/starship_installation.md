@@ -12,8 +12,21 @@ The Starship Prompt Installation Script simplifies the process of setting up the
 ### Step 1: Install wget
  If you don't have wget installed, you can install it using the following command:
 
+*Arch*
 ```bash
-sudo apt-get install wget -y
+sudo pacman -Sy --noconfirm wget
+```
+*Debian*
+```bash
+sudo apt install wget -y
+```
+*Fedora*
+```bash
+sudo dnf install wget -y
+```
+*Android(Termux)*
+```bash
+pkg install wget -y
 ```
 
 ### Step 2: Download and run the Installation Script
@@ -30,10 +43,11 @@ Follow the prompts to select a Starship prompt preset and configure your termina
 
 - **Automated Installation:** Installs Starship prompt and its dependencies automatically.
 - **Customizable:** Allows users to choose from various preset configurations or create a custom configuration.
+- **Supports Multiple Distributions** Configures Starship prompt for Android, Arch, Debian and Fedora systems seamlessly.
 - **Supports Multiple Terminals:** Configures Starship prompt for Bash, Zsh, and Fish shells.
 - **Nerd Font Support:** Optionally installs the Caskaydia Cove Nerd font for enhanced symbol support.
 - **Easy to Use:** Simple and interactive script with prompts for user input.
 
 ## Supported Platforms
 
-This script is tested and supported on `Ubuntu Linux` systems.
+This script is tested and supported on `Android`, `Arch`, `Debian` and `Fedora` systems.
