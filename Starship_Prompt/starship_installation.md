@@ -32,7 +32,7 @@ pkg install wget -y
 ### Step 2: Download and run the Installation Script
 Download the starship-install.sh script using wget:
 ```bash
-cd && wget -N https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/starship-install.sh && bash starship-install.sh && exit
+cd && wget -N https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/starship-install.sh && bash starship-install.sh
 ```
 
 ### Step 3: Configure your terminal.

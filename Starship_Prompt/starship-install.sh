@@ -43,7 +43,7 @@ install_dependencies() {
 
     case $distro in
         "android")
-            pkg install -y curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            pkg install -y curl wget unzip sl || { echo "Error: Dependencies installation failed."; exit 1 ;}
             ;;
         "arch")
             sudo pacman -Sy --noconfirm curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
@@ -544,6 +544,27 @@ main() {
 
     read -n 1 -s -r -p "Press any key to Exit..."
     sleep 0.5
+
+    if [ "$distro" = "android" ]; then
+        sl --help
+    fi
+
+    # Execute source command based on the shell
+    case "$(basename "$SHELL")" in
+        "bash")
+            source ~/.bashrc
+            ;;
+        "fish")
+            source ~/.config/fish/config.fish
+            ;;
+        "zsh")
+            source ~/.zshrc
+            ;;
+        *)
+            echo "Unknown shell. Unable to source configuration file."
+            ;;
+    esac    
+
 }
 
 # Execute the main function
