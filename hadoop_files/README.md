@@ -22,16 +22,25 @@ Before you begin, ensure that you have the following prerequisites:
 ## Installation Steps
 
 ### Step 1: Install wget
- If you don't have wget installed, you can install it using the following command:
+ If you don't have wget installed, you can install it using the following command as per your Linux distribution.
 
+**Arch**
 ```bash
-sudo apt-get install wget -y
+sudo pacman -Sy --noconfirm wget
+```
+**Debian**
+```bash
+sudo apt install wget -y
+```
+**Fedora**
+```bash
+sudo dnf install wget -y
 ```
 
 ### Step 2: Download the Installation Script
 Download the hadoop-setup.sh script using wget:
 ```bash
-cd && wget -N https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit
+cd && wget -O ~/hadoop-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit
 ```
 
 ### Step 3: Verify Installation

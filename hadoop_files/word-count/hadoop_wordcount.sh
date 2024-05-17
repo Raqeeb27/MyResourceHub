@@ -16,7 +16,7 @@ check_hadoop_availability(){
         echo -e "Error: 'hadoop' command not found. Please make sure Hadoop is installed and in your PATH.\n"
         sleep 1
 
-        echo -e "Run the below command to install and configure Hadoop if isn't installed:\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit\n"
+        echo -e "You can follow the Hadoop Installation guide at https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/README.md for the Hadoop Installation\n"
         sleep 1
         
         echo -e "Exiting....\n"

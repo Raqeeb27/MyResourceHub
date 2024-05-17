@@ -19,9 +19,14 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - [Download for Windows](https://download3.vmware.com/software/WKST-1751-WIN/VMware-workstation-full-17.5.1-23298084.exe)
   - [Download for Linux](https://download3.vmware.com/software/WKST-1751-LX/VMware-Workstation-Full-17.5.1-23298084.x86_64.bundle)
 
-- **VirtualBox 7.0.14**
+- **VirtualBox**
   - Free, open-source virtualization platform for creating and managing virtual machines.
-  - [Download](https://download.virtualbox.org/virtualbox/7.0.14/VirtualBox-7.0.14-161095-Win.exe)
+  #### Windows hosts:
+  - VirtualBox 7.0.18 - [Download](https://download.virtualbox.org/virtualbox/7.0.18/VirtualBox-7.0.18-162988-Win.exe)
+  - VirtualBox 7.0.16 - [Download](https://download.virtualbox.org/virtualbox/7.0.16/VirtualBox-7.0.16-162802-Win.exe)
+  - VirtualBox 7.0.14 - [Download](https://download.virtualbox.org/virtualbox/7.0.14/VirtualBox-7.0.14-161095-Win.exe)
+  - VirtualBox 7.0.12 - [Download](https://download.virtualbox.org/virtualbox/7.0.12/VirtualBox-7.0.12-159484-Win.exe)
+  <!-- #### Linux hosts: -->
 
 <br>
 
@@ -55,6 +60,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     curl -o "%USERPROFILE%\Desktop\Activator.bat" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/Activator.bat
     ```
     3. Run the downloaded file `Activator.bat` as Administrator to activate Windows.
+    4. If the file executes successfully, then restart your Windows.
 
 - **Windows 11**
   - Next-gen Windows experience with a redesigned UI and improved performance.
@@ -66,6 +72,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     curl -o "%USERPROFILE%\Desktop\win11.cmd" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/win11.cmd
     ```
     3. Run the downloaded file `win11.cmd` as Administrator to activate Windows.
+    4. If the file executes successfully, then restart your Windows.
 
 <br>
 
@@ -82,8 +89,8 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 - **Ubuntu Desktop**
   - Popular Linux distribution known for its ease of use and community support.
   - Ubuntu 24.04 LTS: [Download ISO](https://ubuntu.com/download/desktop/thank-you?version=24.04&architecture=amd64&lts=true)
-  - Ubuntu 22.04.4 LTS (Jammy Jellyfish): [Download ISO](https://releases.ubuntu.com/22.04/ubuntu-22.04.4-desktop-amd64.iso)
   - Ubuntu 23.10.1 (Mantic Minotaur): [Download ISO](https://releases.ubuntu.com/23.10/ubuntu-23.10.1-desktop-amd64.iso)
+  - Ubuntu 22.04.4 LTS (Jammy Jellyfish): [Download ISO](https://releases.ubuntu.com/22.04/ubuntu-22.04.4-desktop-amd64.iso)
 
 - **Arch**
   - Lightweight and flexible Linux distribution for users who want to customize their system.
@@ -97,12 +104,12 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - User-friendly Linux distribution with a variety of desktop environments to choose from.
 
   #### Desktop Environment Favors
-  - KDE Plasma: [Download ISO](https://download.manjaro.org/kde/24.0/manjaro-kde-24.0-240513-linux69.iso)
-  - XFCE: [Download ISO](https://download.manjaro.org/xfce/24.0/manjaro-xfce-24.0-240513-linux69.iso)
-  - GNOME: [Download ISO](https://download.manjaro.org/gnome/24.0/manjaro-gnome-24.0-240513-linux69.iso)
-  - CINNAMON: [Download ISO](https://download.manjaro.org/cinnamon/23.0.1/manjaro-cinnamon-23.0.1-230921-linux65.iso)
   - I3: [Download ISO](https://download.manjaro.org/i3/23.0.1/manjaro-i3-23.0.1-230921-linux65.iso)
+  - XFCE: [Download ISO](https://download.manjaro.org/xfce/24.0/manjaro-xfce-24.0-240513-linux69.iso)
   - SWAY: [Download ISO](https://manjaro-sway.download/download?file=manjaro-sway-24.0.0-240513-linux66.iso)
+  - GNOME: [Download ISO](https://download.manjaro.org/gnome/24.0/manjaro-gnome-24.0-240513-linux69.iso)
+  - KDE Plasma: [Download ISO](https://download.manjaro.org/kde/24.0/manjaro-kde-24.0-240513-linux69.iso)
+  - CINNAMON: [Download ISO](https://download.manjaro.org/cinnamon/23.0.1/manjaro-cinnamon-23.0.1-230921-linux65.iso)
 
 <br>
 

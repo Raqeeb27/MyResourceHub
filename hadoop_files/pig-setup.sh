@@ -24,7 +24,7 @@ check_hadoop_availability(){
         echo -e "Error: 'hadoop' command not found. Please make sure Hadoop is installed and in your PATH.\n"
         sleep 1
 
-        echo -e "Run the below command to install and configure Hadoop if isn't installed:\n\nsudo apt install wget -y && cd && wget https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit\n"
+        echo -e "You can follow the Hadoop Installation guide at https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/README.md for the Hadoop Installation\n"
         sleep 1
         
         echo -e "Exiting....\n"
@@ -144,7 +144,7 @@ download_and_extract_pig() {
     fi
 
     # Download pig tar file
-    wget https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz -P ~/hadoop-3.3.6 || { echo -e "\nAn error occured while downloading PIG-0.17.0\n\nExiting...\n"; sleep 1; exit 1; }
+    wget -O ~/hadoop-3.3.6/pig-0.17.0.tar.gz https://dlcdn.apache.org/pig/pig-0.17.0/pig-0.17.0.tar.gz || { echo -e "\nAn error occured while downloading PIG-0.17.0\n\nExiting...\n"; sleep 1; exit 1; }
 
     # Check if pig-0.17.0 directory already exists
     if [ -d ~/hadoop-3.3.6/pig-0.17.0 ]; then

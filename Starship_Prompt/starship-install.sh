@@ -68,6 +68,9 @@ install_starship(){
         log_and_pause
         # Open a new terminal window to perform the update interactively
         case $distro in
+            "android")
+                pkg install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
+                ;;
             "arch")
                 sudo pacman -Sy --noconfirm starship || { echo "Error: Starship installation failed."; exit 1 ;}
                 ;;
@@ -76,9 +79,6 @@ install_starship(){
                 ;;
             "fedora")
                 sudo curl -fsSL https://starship.rs/install.sh | bash -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
-                ;;
-            "android")
-                pkg install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
                 ;;
         esac
     else
@@ -92,7 +92,7 @@ install_starship(){
 # Function to prompt user for preset selection
 select_starship_preset() {
     echo -e "\nSelect a Starship prompt preset:\n"
-    
+
     echo " 1. Nerd Font Symbols"
     echo " 2. No Nerd Font"
     echo " 3. Bracketed Segments"
@@ -103,7 +103,7 @@ select_starship_preset() {
     echo " 8. Pastel Powerline"
     echo " 9. Tokyo Night"
     echo " 10. Gruvbox Rainbow"
-    echo " 11. Custom Starship Configuration"
+    echo " 11. Custom Starship Configuration - 1"
     echo -e " 12. None, Exit\n"
 
     sleep 1
@@ -120,177 +120,21 @@ select_starship_preset() {
         8) apply_starship_preset "pastel-powerline" ;;
         9) apply_starship_preset "tokyo-night" ;;
         10) apply_starship_preset "gruvbox-rainbow" ;;
-        11) custom_starship_configuration ;;
+        11) custom_starship_configuration "1";;
         12) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
         *) echo -e "\nInvalid choice. Exiting..."; log_and_pause; exit 1 ;;
     esac
 }
 
 custom_starship_configuration(){
-    echo -e "\n\n\nApplying Custom Starship preset..."
+    local custom=$1
+    echo -e "\n\n\nApplying Custom Starship - $custom preset..."
     log_and_pause
 
     mkdir -p ~/.config && touch ~/.config/starship.toml
-    
-    cat << 'EOF' > ~/.config/starship.toml
-format = """
-[](#B54BBB)\
-$os\
-$username\
-[](fg:#B54BBB bg:#FF758E)\
-$directory\
-[](fg:#FF758E bg:#FFB366)\
-$git_branch\
-$git_status\
-[](fg:#FFB366 bg:#00BFFF)\
-$c\
-$elixir\
-$elm\
-$golang\
-$gradle\
-$haskell\
-$java\
-$julia\
-$nodejs\
-$nim\
-$python\
-$rust\
-$scala\
-[](fg:#00BFFF bg:#4A90E2)\
-$time\
-[](fg:#4A90E2)\
-$cmd_duration\
-[\n  ](fg:#7FFF7F)\
-"""
-#  #9A348E
-# Disable the blank line at the start of the prompt
-# add_newline = false
+    wget -O ~/.config/starship.toml https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/custom_starship_config-$custom.toml
 
-# You can also replace your username with a neat symbol like   or disable this
-# and use the os module below
-[username]
-show_always = true
-style_user = "bg:#B54BBB fg:#FFFFFF bold"
-style_root = "bg:#B54BBB fg:#FFFFFF bold"
-format = '[$user ]($style)'
-disabled = false
-
-# An alternative to the username module which displays a symbol that
-# represents the current operating system
-[os]
-style = "bg:#B54BBB"
-disabled = true # Disabled by default
-
-[directory]#FF758E #DA627D
-style = "bg:#FF758E fg:#FFFFFF bold"
-format = "[ $path ]($style)"
-truncation_length = 5
-truncation_symbol = "…/"
-
-# Here is how you can shorten some long paths by text replacement
-# similar to mapped_locations in Oh My Posh:
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
-# Keep in mind that the order matters. For example:
-# "Important Documents" = " 󰈙 "
-# will not be replaced, because "Documents" was already substituted before.
-# So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important 󰈙 " = " 󰈙 "
-
-[c]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ]($style)'
-
-[docker_context]
-symbol = " "
-style = "bg:#86BBD8 fg:#FFFFFF"
-format = '[ $symbol $context ]($style) $path'
-
-[elixir]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[git_branch]
-symbol = ""
-style = "bg:#FFB366 fg:#FFFFFF bold"
-format = '[ $symbol $branch ]($style)'
-
-[git_status]
-style = "bg:#FFB366 fg:#FFFFFF bold"
-format = '[$all_status$ahead_behind ]($style)'
-
-[golang]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[gradle]
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[haskell]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[java]
-symbol = ""
-style = "bg:#00BFFF fg:#FFFFFF bold"
-format = '[ $symbol ]($style)'
-
-[julia]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[nodejs]
-symbol = ""
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[nim]
-symbol = "󰆥 "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
- 
-[python]
-symbol = ""
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ]($style)'
-
-[rust]
-symbol = ""
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[scala]
-symbol = " "
-style = "bg:#00BFFF fg:#FFFFFF"
-format = '[ $symbol ($version) ]($style)'
-
-[time] #33658A
-disabled = false
-time_format = "%I:%M %p" # Hour:Minute AM/PM Format
-style = "bg:#4A90E2 fg:#FFFFFF bold"
-format = '[ ♥ $time ]($style)'
-
-[cmd_duration]
-style = " fg:#00FF00 bold"
-format = '[   $duration ]($style)'
-min_time = 300
-EOF
-
-    echo -e "Custom Starship preset applied successfully.\n"
+    echo -e "Custom Starship - $custom preset applied successfully.\n"
 }
 
 ## --------------------------------------------------------------------------
@@ -341,7 +185,7 @@ confirm_bashrc(){
         fi
 
         read -p "Do you want to configure the ~/.bashrc file? (y/n, default: yes): " bash_response
-        
+
         # Convert the user input to lowercase for case-insensitive comparison
         case "${bash_response,,}" in
             y|yes|"") configure_bashrc ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
@@ -376,7 +220,7 @@ confirm_fish(){
         fi
 
         read -p "Do you want to configure the ~/.config/fish/config.fish file? (y/n, default: yes): " fish_response
-        
+
         # Convert the user input to lowercase for case-insensitive comparison
         case "${fish_response,,}" in
             y|yes|"") configure_fish ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
@@ -410,7 +254,7 @@ confirm_zshrc(){
         fi
 
         read -p "Do you want to configure the ~/.zshrc file? (y/n, default: yes): " zsh_response
-        
+
         # Convert the user input to lowercase for case-insensitive comparison
         case "${zsh_response,,}" in
             y|yes|"") configure_zshrc ;;  # Accept 'y', 'yes', 'Y', 'YES', 'Yes', or Enter key
@@ -460,7 +304,7 @@ download_nerd_font() {
     echo "Downloading CascadiaCode Nerd Font for Preset..."
     log_and_pause
 
-    wget -N https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -P ~
+    wget -O ~/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip
     log_and_pause
 }
 
@@ -550,20 +394,20 @@ main() {
     fi
 
     # Execute source command based on the shell
-    case "$(basename "$SHELL")" in
-        "bash")
-            source ~/.bashrc
-            ;;
-        "fish")
-            source ~/.config/fish/config.fish
-            ;;
-        "zsh")
-            source ~/.zshrc
-            ;;
-        *)
-            echo "Unknown shell. Unable to source configuration file."
-            ;;
-    esac    
+    # case "$(basename "$SHELL")" in
+        # "bash")
+            # source ~/.bashrc
+            # ;;
+        # "fish")
+            # source ~/.config/fish/config.fish
+            # ;;
+        # "zsh")
+            # source ~/.zshrc
+            # ;;
+        # *)
+            # echo "Unknown shell. Unable to source configuration file."
+            # ;;
+    # esac
 
 }
 

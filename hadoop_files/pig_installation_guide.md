@@ -8,22 +8,31 @@ Before you begin, ensure that you have the following prerequisites:
 
 - Arch or Fedora or Ubuntu or a Debian-based Linux distribution
 - Stable Internet connection for downloading Pig-0.17.0
-- [Hadoop](https://hadoop.apache.org/) installed on your system and properly configured. Run `hadoop version` command in yor terminal to verify. You can follow [this](https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/hadoop_installation_guide.md) guide for the setup.
+- [Hadoop](https://hadoop.apache.org/) installed on your system and properly configured. Run `hadoop version` command in your terminal to verify. You can follow [this](https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/README.md) guide for the Hadoop setup.
 
 
 ## Installation Steps
 
 ### Step 1: Install wget
- If you don't have wget installed, you can install it using the following command:
+ If you don't have wget installed, you can install it using the following command as per your Linux distribution.
 
+**Arch**
 ```bash
-sudo apt-get install wget -y
+sudo pacman -Sy --noconfirm wget
+```
+**Debian**
+```bash
+sudo apt install wget -y
+```
+**Fedora**
+```bash
+sudo dnf install wget -y
 ```
 
 ### Step 2: Download the Installation Script
 Download the pig-setup.sh script using wget:
 ```bash
-cd && wget -N https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/pig-setup.sh && bash pig-setup.sh && exit
+cd && wget -O ~/pig-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/pig-setup.sh && bash pig-setup.sh && exit
 ```
 
 ### Step 3: Verify Installation

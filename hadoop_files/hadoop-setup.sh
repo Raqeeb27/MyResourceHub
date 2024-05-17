@@ -86,7 +86,8 @@ download_and_extract_hadoop() {
     fi
 
     # Download Hadoop tar file
-    wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz -P ~/Downloads || { echo -e "\nAn error occured while downloading Hadoop-3.3.6\n\nExiting...\n"; sleep 1; exit 1; }
+    mkdir -p ~/Downloads
+    wget -O ~/Downloads/hadoop-3.3.6.tar.gz https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz || { echo -e "\nAn error occured while downloading Hadoop-3.3.6\n\nExiting...\n"; sleep 1; exit 1; }
 
     # Check if Hadoop-3.3.6 directory already exists
     if [ -d ~/hadoop-3.3.6 ]; then
