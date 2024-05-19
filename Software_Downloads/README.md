@@ -8,7 +8,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 #### Equip your system with these essential utilities
 
- **Prerequisite**: [Enable Virtualization](https://bce.berkeley.edu/enabling-virtualization-in-your-pc-bios.html) in your system BIOS.
+ **Prerequisite**: [Enable Virtualization](https://bce.berkeley.edu/enabling-virtualization-in-your-pc-bios.html) in your system BIOS for running virtual machines (VMs) efficiently.
 
 - **Visual C++ Redistributable Packages**
   - Essential runtime components for running C++ applications built with Visual Studio.
@@ -27,6 +27,22 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - VirtualBox 7.0.14 - [Download](https://download.virtualbox.org/virtualbox/7.0.14/VirtualBox-7.0.14-161095-Win.exe)
   - VirtualBox 7.0.12 - [Download](https://download.virtualbox.org/virtualbox/7.0.12/VirtualBox-7.0.12-159484-Win.exe)
   <!-- #### Linux hosts: -->
+
+- **eDEX-UI**
+  - eDEX-UI is a fullscreen, cross-platform terminal emulator and system monitor that looks and feels like a sci-fi computer interface.
+  - [Download &nbsp;v2.2.8](https://github.com/GitSquared/edex-ui/releases/download/v2.2.8/eDEX-UI-Windows-x64.exe)
+
+- **Rufus**
+  - Utility for formatting and creating bootable USB drives.
+  - [Download &nbsp;v4.4](https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe)
+
+- **balenaEtcher**
+  - Tool for flashing OS images to SD cards & USB drives, safely and easily.
+  - [Download &nbsp;v1.18.11](https://github.com/balena-io/etcher/releases/download/v1.18.11/balenaEtcher-Setup-1.18.11.exe)
+
+- **Ventoy**
+  - Open-source tool to create a multiboot USB drive from ISO files.
+  - [Download &nbsp;v1.0.98](https://sourceforge.net/projects/ventoy/files/v1.0.98/Ventoy%201.0.98%20release%20source%20code.zip/download)
 
 <br>
 
@@ -69,9 +85,9 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     1. [Turn off Windows Defender](https://support.microsoft.com/en-us/windows/turn-off-defender-antivirus-protection-in-windows-security-99e6004f-c54c-8509-773c-a4d776b77960) in Windows Security.
     2. Download the activation file to your Desktop by the following CMD command:<br><br>
     ```bash
-    curl -o "%USERPROFILE%\Desktop\win11.cmd" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/win11.cmd
+    curl -o "%USERPROFILE%\Desktop\Activator.bat" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/Activator.bat
     ```
-    3. Run the downloaded file `win11.cmd` as Administrator to activate Windows.
+    3. Run the downloaded file `Activator.bat` as Administrator to activate Windows.
     4. If the file executes successfully, then restart your Windows.
 
 <br>
@@ -91,6 +107,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - Ubuntu 24.04 LTS: [Download ISO](https://ubuntu.com/download/desktop/thank-you?version=24.04&architecture=amd64&lts=true)
   - Ubuntu 23.10.1 (Mantic Minotaur): [Download ISO](https://releases.ubuntu.com/23.10/ubuntu-23.10.1-desktop-amd64.iso)
   - Ubuntu 22.04.4 LTS (Jammy Jellyfish): [Download ISO](https://releases.ubuntu.com/22.04/ubuntu-22.04.4-desktop-amd64.iso)
+  - Ubuntu 22.04.3 LTS (Jammy Jellyfish): [Download ISO](https://ubuntu.com/download/desktop/thank-you?version=22.04.3&architecture=amd64)
 
 - **Arch**
   - Lightweight and flexible Linux distribution for users who want to customize their system.
@@ -113,6 +130,16 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <br>
 
+## Essential Tools
+
+- **PowerShell 7.4.2**
+  - Cross-platform (Windows, Linux, and macOS) automation and configuration tool/framework.
+  - [Download for Windows](https://github.com/PowerShell/PowerShell/releases/download/v7.4.2/PowerShell-7.4.2-win-x64.msi)
+  - [Download for Linux](https://github.com/PowerShell/PowerShell/releases/download/v7.4.2/powershell-7.4.2-linux-x64.tar.gz)
+  - [Download for macOS](https://github.com/PowerShell/PowerShell/releases/download/v7.4.2/powershell-7.4.2-osx-x64.pkg)
+
+<br>
+
 ## Others
 
 #### Expand your toolkit with additional resources:
@@ -123,7 +150,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 ##
 
-**Last Updated:** `17/05/2024`
+**Last Updated:** `19/05/2024`
 
 ##
 
