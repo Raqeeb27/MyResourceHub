@@ -71,10 +71,12 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - The transitional OS between XP and 7, featuring a new user interface and enhanced security.
   - [Download ISO](https://archive.org/download/windows-vista-ultimate-sp-2-x-64-fully-updated/Windows%20Vista%20Ultimate%20SP2%20x64%20Fully%20Updated.iso) &nbsp;(4.6 GB)
   - **Product Key:** `VMCB9-FDRV6-6CDQM-RV23K-RP8F7`
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/1X3FjDqyZql5ZrPtpVwzVXR9s30eEjkm-/view?usp=sharing) &nbsp;(3.2 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/win-7_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows 7 Ultimate**
   - Popular OS featuring enhanced performance and security.
   - [Download ISO](https://archive.org/download/win-7-ult-sp-1-english-x-64/Win7_Ult_SP1_English_x64.iso) &nbsp;(3.1 GB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/16ioGZBRMQY7mh_Yv2bgQOXbw9tpPpgQH/view?usp=sharing) &nbsp;(2 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/win-8_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows 8.1**
   - Improved version of Windows 8 with enhanced user experience.
@@ -88,6 +90,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 - <span style="vertical-align: middle;"><img src='logos/win-11_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows 11**
   - Next-gen Windows experience with a redesigned UI and improved performance.
   - [Download Media Creation Tool](https://go.microsoft.com/fwlink/?linkid=2156295) &nbsp;(10 MB)
+  
   #### **Activation Instructions for Windows - 10 & 11**:
     1. [Turn off Windows Defender](https://support.microsoft.com/en-us/windows/turn-off-defender-antivirus-protection-in-windows-security-99e6004f-c54c-8509-773c-a4d776b77960) in Windows Security.
     2. Download the activation file to your Desktop by the following CMD command:<br><br>
@@ -164,7 +167,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 ##
 
-**Last Updated:** `24/05/2024`
+**Last Updated:** `25/05/2024`
 
 ##
 
