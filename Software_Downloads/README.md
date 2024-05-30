@@ -39,7 +39,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 - <span style="vertical-align: middle;"><img src='logos/balenaetcher_logo.png' alt="balenaetcher_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**balenaEtcher**
   - Tool for flashing OS images to SD cards & USB drives, safely and easily.
-  - [Download &nbsp;v1.18.11](https://github.com/balena-io/etcher/releases/download/v1.18.11/balenaEtcher-Setup-1.18.11.exe) &nbsp;(148 MB)
+  - [Download &nbsp;v1.19.19](https://github.com/balena-io/etcher/releases/download/v1.19.19/balenaEtcher-1.19.19.Setup.exe) &nbsp;(148 MB)
 
 - <span style="vertical-align: middle;"><img src='logos/ventoy_logo.png' alt="Ventoy_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Ventoy**
   - Open-source tool to create a multiboot USB drive from ISO files.
@@ -47,7 +47,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 - <span style="vertical-align: middle;"><img src='logos/7zip_logo.png' alt="7zip_Logo" style="width:30px;height:auto;margin-bottom: -3px;"></span>  &nbsp;**7-Zip**
   - Open-source file archiver with a high compression ratio.
-  - [Download &nbsp;v24.05](https://www.7-zip.org/a/7z2405-x64.exe) &nbsp;(1.6 MB)
+  - [Download &nbsp;v24.06](https://www.7-zip.org/a/7z2406-x64.exe) &nbsp;(1.6 MB)
 
 - <span style="vertical-align: middle;"><img src='logos/Free_Download_Manager_logo.png' alt="Free_Download_Manager_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Free Download Manager**
   - A powerful, user-friendly, and fast download accelerator and organizer.
@@ -65,18 +65,18 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - Classic Windows OS known for its stability and familiarity.
   - [Download ISO](https://isoriver.com/download-your-file-now/?url=https://archive.org/download/WindowsXPProfessional64BitCorporateEdition/Windows%20XP%20Professional%2064-bit%20Corporate%20Edition%28CD%20Key%20VCFQD-V9FX9-46WVH-K3CD4-4J3JM%29.iso) &nbsp;(561 MB)
   - **Product Key:** `VCFQD-V9FX9-46WVH-K3CD4-4J3JM`
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQSVay2sUqQwHjhp?e=PYD7A7) &nbsp;(768 MB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQZ90S8QK5A5DJXG?e=gOBjBr) &nbsp;(768 MB)
 
 - <span style="vertical-align: middle;"><img src='logos/windows-vista_logo.png' alt="Windows-Vista_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows Vista Ultimate**
   - The transitional OS between XP and 7, featuring a new user interface and enhanced security.
   - [Download ISO](https://archive.org/download/windows-vista-ultimate-sp-2-x-64-fully-updated/Windows%20Vista%20Ultimate%20SP2%20x64%20Fully%20Updated.iso) &nbsp;(4.6 GB)
   - **Product Key:** `VMCB9-FDRV6-6CDQM-RV23K-RP8F7`
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/1X3FjDqyZql5ZrPtpVwzVXR9s30eEjkm-/view?usp=sharing) &nbsp;(3.2 GB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/1GZNH7TKEmosDsmq86PkKbQ3IF_lo32xG/view?usp=sharing) &nbsp;(3.2 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/win-7_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows 7 Ultimate**
   - Popular OS featuring enhanced performance and security.
   - [Download ISO](https://archive.org/download/win-7-ult-sp-1-english-x-64/Win7_Ult_SP1_English_x64.iso) &nbsp;(3.1 GB)
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/16ioGZBRMQY7mh_Yv2bgQOXbw9tpPpgQH/view?usp=sharing) &nbsp;(2 GB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://drive.google.com/file/d/1yH1Hu7r2-NNqZYXuI_p2GhKIop8clp5F/view?usp=sharing) &nbsp;(2 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/win-8_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Windows 8.1**
   - Improved version of Windows 8 with enhanced user experience.
@@ -111,7 +111,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - [Download ISO](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-installer-amd64.iso) &nbsp;(3.8 GB)
   - Virtual machine (7zip compressed) for [VMware](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-vmware-amd64.7z) &nbsp;(3 GB)
   - Virtual machine (7zip compressed) for [VirtualBox](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-virtualbox-amd64.7z) &nbsp;(3 GB)
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3f6G-IE7M8fUvuMU?e=VDMshw) &nbsp;(3.22 GB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQeghsmmuCHIMeiW?e=75chWb) &nbsp;(3.22 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/ubuntu_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Ubuntu Desktop**
   - Popular Linux distribution known for its ease of use and community support.
@@ -163,11 +163,11 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 - <span style="vertical-align: middle;"><img src='logos/metasploitable2_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Metasploitable 2**
   - Vulnerable virtual machine for practicing penetration testing and security assessments.
   - [Download ZIP](https://sourceforge.net/projects/metasploitable/files/latest/download) &nbsp;(825 MB)
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3fpa74S_hvomvdNw?e=geIOWi) &nbsp;(626 MB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQUa2fHeMWyRjeS9?e=qY16un) &nbsp;(626 MB)
 
 ##
 
-**Last Updated:** `25/05/2024`
+**Last Updated:** `30/05/2024`
 
 ##
 
