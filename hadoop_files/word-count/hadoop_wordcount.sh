@@ -26,11 +26,27 @@ check_hadoop_availability(){
 }
 
 ## --------------------------------------------------------------------------
+# Function to determine Linux distribution
+detect_linux_distribution() {
+    # Check for distribution type
+    if [ -f /etc/arch-release ]; then
+        START_SSH_COMMAND="sudo systemctl start sshd"
+    elif [ -f /etc/debian_version ]; then
+        START_SSH_COMMAND="sudo service ssh start"
+    elif [ -f /etc/fedora-release ]; then
+        START_SSH_COMMAND="sudo systemctl start sshd"
+    else
+        echo -e "\nUnsupported Linux distribution.\n\nExiting...\n"
+        exit 1
+    fi
+}
+
+## --------------------------------------------------------------------------
 # Function to start SSH service
 start_ssh_service() {
     echo "Starting SSH service..."
 
-    sudo service ssh start || { echo -e "\nError: Failed to start SSH service. \nExiting...\n"; exit 1; }
+    $START_SSH_COMMAND || { echo -e "\nError: Failed to start SSH service. \nExiting...\n"; exit 1; }
 
     echo -e "\nSSH service started successfully."
     log_and_pause
@@ -269,7 +285,7 @@ create_jar(){
     sleep 3
 
     # List JAR file
-    echo "Created JAR file:"
+    echo "Created JAR file: Wordcount.jar"
     ls ~/hadoop_wordcount/
 
     sleep 2

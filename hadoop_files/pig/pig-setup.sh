@@ -36,14 +36,16 @@ check_hadoop_availability(){
 ## --------------------------------------------------------------------------
 # Function to determine Linux distribution
 detect_linux_distribution() {
-    if command -v apt &> /dev/null; then
+    # Check for distribution type
+    if [ -f /etc/arch-release ]; then
+        LINUX_DISTRO="Arch"
+        START_SSH_COMMAND="sudo systemctl start sshd"
+    elif [ -f /etc/debian_version ]; then
         LINUX_DISTRO="Ubuntu/Debian"
-    elif command -v pacman &> /dev/null; then
-        LINUX_DISTRO="Arch"
-    elif command -v paru &> /dev/null; then
-        LINUX_DISTRO="Arch"
-    elif command -v dnf &> /dev/null; then
+        START_SSH_COMMAND="sudo service ssh start"
+    elif [ -f /etc/fedora-release ]; then
         LINUX_DISTRO="Fedora"
+        START_SSH_COMMAND="sudo systemctl start sshd"
     else
         echo -e "\nUnsupported Linux distribution.\n\nExiting...\n"
         exit 1
@@ -87,7 +89,7 @@ remove_bsdgames_if_installed() {
 start_ssh_service() {
     echo "Starting SSH service..."
 
-    sudo service ssh start || { echo -e "\nError: Failed to start SSH service. \nExiting...\n"; exit 1; }
+    $START_SSH_COMMAND || { echo -e "\nError: Failed to start SSH service. \nExiting...\n"; exit 1; }
 
     echo -e "\nSSH service started successfully."
     log_and_pause
@@ -152,11 +154,11 @@ download_and_extract_pig() {
     fi
 
     log_and_pause
-    echo -e "Extracting pig-0.17.0.tar.gz ....\n "
+    echo -e "Extracting pig-0.17.0.tar.gz .... (Estimated time: 10 Seconds)\n "
     sleep 1
 
     # Extract pig tar file
-    tar -zxvf ~/hadoop-3.3.6/pig-0.17.0.tar.gz -C ~/hadoop-3.3.6 || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
+    tar -zxf ~/hadoop-3.3.6/pig-0.17.0.tar.gz -C ~/hadoop-3.3.6 || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
     log_and_pause
 
     echo -e "Successfully downloaded and extracted Pig!"
@@ -203,7 +205,7 @@ display_success_message() {
     #sleep 1.5
 
     #echo "Note:- When you restart your machine, run the following commands:"
-    #echo -e "sudo service ssh start\nstart-all.sh"
+    #echo -e "$START_SSH_COMMAND\nstart-all.sh"
 
     log_and_pause
     echo -e "\n-------- SUCCESS --------\n"

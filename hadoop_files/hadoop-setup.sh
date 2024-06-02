@@ -16,15 +16,15 @@ log_and_pause(){
     echo -e "\n"
 }
 
+## --------------------------------------------------------------------------
 # Function to determine Linux distribution
 detect_linux_distribution() {
-    if command -v apt &> /dev/null; then
+    # Check for distribution type
+    if [ -f /etc/arch-release ]; then
+        LINUX_DISTRO="Arch"
+    elif [ -f /etc/debian_version ]; then
         LINUX_DISTRO="Ubuntu/Debian"
-    elif command -v pacman &> /dev/null; then
-        LINUX_DISTRO="Arch"
-    elif command -v paru &> /dev/null; then
-        LINUX_DISTRO="Arch"
-    elif command -v dnf &> /dev/null; then
+    elif [ -f /etc/fedora-release ]; then
         LINUX_DISTRO="Fedora"
     else
         echo -e "\nUnsupported Linux distribution.\n\nExiting...\n"
@@ -32,6 +32,7 @@ detect_linux_distribution() {
     fi
 }
 
+## --------------------------------------------------------------------------
 # Function to install packages based on Linux distribution
 update_and_install_packages() {
     echo -e "\nUpdating System and Installing Dependencies (openssh wget Java JDK-8)...."
@@ -41,17 +42,23 @@ update_and_install_packages() {
         "Ubuntu/Debian")
             sudo apt update && sudo apt upgrade -y;
             echo;
-            sudo apt install -y openjdk-8-jdk wget ssh openssh-server
+            sudo apt install -y openjdk-8-jdk wget ssh openssh-server;
+            JAVA_HOME_DIR="java-8-openjdk-amd64";
+            START_SSH_COMMAND="sudo service ssh start"
             ;;
         "Arch")
             sudo pacman -Syu --noconfirm || sudo paru -Syu --noconfirm;
             echo;
             sudo pacman -Sy --noconfirm jdk8-openjdk wget openssh || sudo paru -Sy --noconfirm jdk8-openjdk wget openssh;
+            JAVA_HOME_DIR="java-8-openjdk";
+            START_SSH_COMMAND="sudo systemctl start sshd"
             ;;
         "Fedora")
             sudo dnf upgrade -y;
             echo;
-            sudo dnf install -y java-1.8.0-openjdk wget openssh-server
+            sudo dnf install -y java-1.8.0-openjdk wget openssh-server;
+            JAVA_HOME_DIR="java-1.8.0-openjdk";
+            START_SSH_COMMAND="sudo systemctl start sshd"
             ;;
     esac
     log_and_pause
@@ -95,11 +102,11 @@ download_and_extract_hadoop() {
     fi
 
     log_and_pause
-    echo -e "Extracting hadoop-3.3.6.tar.gz ....\n "
+    echo -e "Extracting hadoop-3.3.6.tar.gz .... (Estimated time: 15 Seconds)\n "
     sleep 1
 
     # Extract Hadoop tar file
-    tar -zxvf ~/Downloads/hadoop-3.3.6.tar.gz -C ~ || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
+    tar -zxf ~/Downloads/hadoop-3.3.6.tar.gz -C ~ || { echo -e "An error occured during the extraction process.\n\nExiting...\n"; sleep 1; exit 1; }
     log_and_pause
 
     echo -e "Successfully downloaded and extracted Hadoop!"
@@ -109,8 +116,8 @@ download_and_extract_hadoop() {
 ## --------------------------------------------------------------------------
 # Function to remove existing Hadoop-related environment variables from .bashrc
 remove_existing_hadoop_env_variables() {
-    sed -i '/export JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/d' ~/.bashrc
-    sed -i '/export PATH=\$PATH:\/usr\/lib\/jvm\/java-8-openjdk-amd64\/bin/d' ~/.bashrc
+    sed -i "/export JAVA_HOME=\/usr\/lib\/jvm\/$JAVA_HOME_DIR/d" ~/.bashrc
+    sed -i "/export PATH=\$PATH:\/usr\/lib\/jvm\/$JAVA_HOME_DIR\/bin/d" ~/.bashrc
     sed -i '/export HADOOP_HOME=~/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\$HADOOP_HOME\/bin/d' ~/.bashrc
     sed -i '/export PATH=\$PATH:\$HADOOP_HOME\/sbin/d' ~/.bashrc
@@ -132,8 +139,8 @@ remove_existing_hadoop_env_variables() {
 configure_java_environment() {
     echo -e "\nConfiguring Java environment variables in .bashrc..."
 
-    echo -e "\n\nexport JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
-    echo "export PATH=\$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin" >> ~/.bashrc
+    echo -e "\n\nexport JAVA_HOME=/usr/lib/jvm/$JAVA_HOME_DIR" >> ~/.bashrc
+    echo "export PATH=\$PATH:/usr/lib/jvm/$JAVA_HOME_DIR/bin" >> ~/.bashrc
 
     log_and_pause
     echo "Configured!"
@@ -158,8 +165,8 @@ configure_hadoop_environment() {
     echo "export PDSH_RCMD_TYPE=ssh" >> ~/.bashrc
 
     # Configure Hadoop Environment variables for current session
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-    export PATH=$PATH:/usr/lib/jvm/java-8-openjdk-amd64/bin
+    export JAVA_HOME=/usr/lib/jvm/$JAVA_HOME_DIR
+    export PATH=$PATH:/usr/lib/jvm/$JAVA_HOME_DIR/bin
     export HADOOP_HOME=~/hadoop-3.3.6/
     export PATH=$PATH:$HADOOP_HOME/bin
     export PATH=$PATH:$HADOOP_HOME/sbin
@@ -349,7 +356,7 @@ EOF
 update_hadoop_env() {
     echo -e "\nUpdating hadoop-env.sh..."
 
-    sed -i '37s/.*/JAVA_HOME=\/usr\/lib\/jvm\/java-8-openjdk-amd64/' ~/hadoop-3.3.6/etc/hadoop/hadoop-env.sh
+    sed -i "37s|.*|JAVA_HOME=/usr/lib/jvm/$JAVA_HOME_DIR|" ~/hadoop-3.3.6/etc/hadoop/hadoop-env.sh
 
     sleep 1
     echo -e "\nDone!"
@@ -394,7 +401,7 @@ setup_ssh_keys() {
 start_ssh_service(){
     echo -e "\nStarting SSH service..."
 
-    sudo service ssh start || { echo -e "\nError: Failed to start SSH service. \nExiting..."; log_and_pause; exit 1; }
+    $START_SSH_COMMAND || { echo -e "\nError: Failed to start SSH service. \nExiting..."; log_and_pause; exit 1; }
 
     echo -e "\nSSH service started successfully!"
     log_and_pause
@@ -457,7 +464,7 @@ display_success_message() {
     sleep 1.5
 
     echo "Note:- When you restart your machine, run the following commands:"
-    echo -e "sudo service ssh start\nstart-all.sh"
+    echo -e "$START_SSH_COMMAND\nstart-all.sh"
 
     log_and_pause
     echo -e "\n-------- SUCCESS --------\n"

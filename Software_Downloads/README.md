@@ -165,6 +165,12 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - [Download ZIP](https://sourceforge.net/projects/metasploitable/files/latest/download) &nbsp;(825 MB)
   - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQUa2fHeMWyRjeS9?e=qY16un) &nbsp;(626 MB)
 
+<br>
+
+## Issues
+
+If you encounter any issues or have suggestions, please report them on our [GitHub Issues page](https://github.com/Raqeeb27/MyResourceHub/issues).
+
 ##
 
 **Last Updated:** `01/06/2024`

@@ -32,7 +32,7 @@ sudo dnf install wget -y
 ### Step 2: Download the Installation Script
 Download the pig-setup.sh script using wget:
 ```bash
-cd && wget -O ~/pig-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/pig-setup.sh && bash pig-setup.sh && exit
+cd && wget -O ~/pig-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/pig/pig-setup.sh && bash pig-setup.sh && exit
 ```
 
 ### Step 3: Verify Installation
