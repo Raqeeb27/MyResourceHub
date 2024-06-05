@@ -111,7 +111,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   - [Download ISO](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-installer-amd64.iso) &nbsp;(3.8 GB)
   - Virtual machine (7zip compressed) for [VMware](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-vmware-amd64.7z) &nbsp;(3 GB)
   - Virtual machine (7zip compressed) for [VirtualBox](https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-virtualbox-amd64.7z) &nbsp;(3 GB)
-  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQeghsmmuCHIMeiW?e=75chWb) &nbsp;(3.22 GB)
+  - ( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - [Download 7zip compressed](https://1drv.ms/u/s!ArgXLsQ1izD3gQlVK_xxaptf91_b?e=bnoRtN) &nbsp;(3.22 GB)
 
 - <span style="vertical-align: middle;"><img src='logos/ubuntu_logo.png' alt="_Logo" style="width:30px;height:auto; margin-bottom: -3px;"></span> &nbsp;**Ubuntu Desktop**
   - Popular Linux distribution known for its ease of use and community support.
@@ -173,7 +173,7 @@ If you encounter any issues or have suggestions, please report them on our [GitH
 
 ##
 
-**Last Updated:** `01/06/2024`
+**Last Updated:** `05/06/2024`
 
 ##
 
