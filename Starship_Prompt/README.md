@@ -9,28 +9,28 @@ The Starship Prompt Installation Script simplifies the process of setting up the
 
 ## Installation Steps
 
-### Step 1: Install wget
-If you don't have wget installed, you can install it using the following command:
+### Step 1: Update the system and Install wget
+Update the system and install wget using the following command:
 
 **Android(Termux)**
 ```bash
-pkg install wget -y
+apt update && apt upgrade -y && apt install wget -y
 ```
 **Arch**
 ```bash
-sudo pacman -Sy --noconfirm wget
+sudo pacman -Syu --noconfirm && sudo pacman -Sy --noconfirm wget
 ```
 **Debian**
 ```bash
-sudo apt install wget -y
+sudo apt update && sudo apt upgrade -y && sudo apt install wget -y
 ```
 **Fedora**
 ```bash
-sudo dnf install wget -y
+sudo dnf check-update -y && sudo dnf upgrade -y && sudo dnf install wget -y
 ```
 
 ### Step 2: Download and run the Installation Script
-Download the starship-install.sh script using wget:
+Download the starship-install.sh script using wget and execute it:
 ```bash
 cd && wget -O ~/starship-install.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/starship-install.sh && bash starship-install.sh && exit
 ```

@@ -43,7 +43,7 @@ install_dependencies() {
 
     case $distro in
         "android")
-            pkg install -y curl wget unzip sl || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            apt install -y curl wget unzip sl || { echo "Error: Dependencies installation failed."; exit 1 ;}
             ;;
         "arch")
             sudo pacman -Sy --noconfirm curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
@@ -69,7 +69,7 @@ install_starship(){
         # Open a new terminal window to perform the update interactively
         case $distro in
             "android")
-                pkg install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
+                apt install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
                 ;;
             "arch")
                 sudo pacman -Sy --noconfirm starship || { echo "Error: Starship installation failed."; exit 1 ;}
@@ -104,7 +104,8 @@ select_starship_preset() {
     echo " 9. Tokyo Night"
     echo " 10. Gruvbox Rainbow"
     echo " 11. Custom Starship Configuration - 1"
-    echo -e " 12. None, Exit\n"
+    echo " 12. Custom Starship Configuration - 2"
+    echo -e " 13. None, Exit\n"
 
     sleep 1
     read -p "Enter the number corresponding to your choice: " choice
@@ -121,7 +122,8 @@ select_starship_preset() {
         9) apply_starship_preset "tokyo-night" ;;
         10) apply_starship_preset "gruvbox-rainbow" ;;
         11) custom_starship_configuration "1";;
-        12) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
+        12) custom_starship_configuration "2";;
+        13) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
         *) echo -e "\nInvalid choice. Exiting..."; log_and_pause; exit 1 ;;
     esac
 }
@@ -177,6 +179,7 @@ setup_starship_config() {
 ## --------------------------------------------------------------------------
 # Function to confirm changes to ~/.bashrc file
 confirm_bashrc(){
+    touch ~/.bashrc
     if [ -f ~/.bashrc ]; then
         # Check if the ~/.bashrc file contains the line 'eval "$(starship init bash)"'
         if grep -q 'eval "$(starship init bash)"' ~/.bashrc; then
