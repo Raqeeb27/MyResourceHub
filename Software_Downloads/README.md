@@ -26,7 +26,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- VC Redist -->
 <details>
-<summary><img src='logos/vc-redist_logo.png' alt="vc_redist_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Visual C++ Redistributable Packages</b></summary>
+<summary>&nbsp;<img src='logos/vc-redist_logo.png' alt="vc_redist_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Visual C++ Redistributable Packages</b></summary>
   <ul></ul>
   <ul>
     <li>Essential runtime components for running C++ applications built with Visual Studio.</li>
@@ -36,7 +36,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- VMware -->
 <details>
-<summary><img src='logos/VMware_logo.png' alt="VMware_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>VMware Workstation Pro 17</b></summary>
+<summary>&nbsp;<img src='logos/VMware_logo.png' alt="VMware_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>VMware Workstation Pro 17</b></summary>
   <ul></ul>
   <ul>
     <li>Leading virtualization software for running multiple operating systems on one machine.</li>
@@ -47,7 +47,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- VirtualBox -->
 <details>
-<summary><img src='logos/Virtualbox_logo.png' alt="VBox_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>VirtualBox</b></summary>
+<summary>&nbsp;<img src='logos/Virtualbox_logo.png' alt="VBox_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>VirtualBox</b></summary>
   <ul></ul>
   <ul>
     <li>Free, open-source virtualization platform for creating and managing virtual machines.</li>
@@ -61,7 +61,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- eDEX-UI -->
 <details>
-<summary><img src='logos/edexui_logo.png' alt="edexui_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;eDEX-UI</b></summary>
+<summary>&nbsp;<img src='logos/edexui_logo.png' alt="edexui_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;eDEX-UI</b></summary>
   <ul></ul>
   <ul>
     <li>eDEX-UI is a fullscreen, cross-platform terminal emulator and system monitor that looks and feels like a sci-fi computer interface.</li>
@@ -71,7 +71,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Rufus -->
 <details>
-<summary><img src='logos/rufus_logo.png' alt="Rufus_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Rufus</b></summary>
+<summary>&nbsp;<img src='logos/rufus_logo.png' alt="Rufus_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Rufus</b></summary>
   <ul></ul>
   <ul>
     <li>Utility for formatting and creating bootable USB drives.</li>
@@ -81,7 +81,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- balenaEtcher -->
 <details>
-<summary><img src='logos/balenaetcher_logo.png' alt="balenaetcher_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;balenaEtcher</b></summary>
+<summary>&nbsp;<img src='logos/balenaetcher_logo.png' alt="balenaetcher_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;balenaEtcher</b></summary>
   <ul></ul>
   <ul>
     <li>Tool for flashing OS images to SD cards & USB drives, safely and easily.</li>
@@ -91,7 +91,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Ventoy -->
 <details>
-<summary><img src='logos/ventoy_logo.png' alt="Ventoy_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Ventoy</b></summary>
+<summary>&nbsp;<img src='logos/ventoy_logo.png' alt="Ventoy_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Ventoy</b></summary>
   <ul></ul>
   <ul>
     <li>Open-source tool to create a multiboot USB drive from ISO files.</li>
@@ -101,7 +101,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- 7zip -->
 <details>
-<summary><img src='logos/7zip_logo.png' alt="7zip_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;7-Zip</b></summary>
+<summary>&nbsp;<img src='logos/7zip_logo.png' alt="7zip_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;7-Zip</b></summary>
   <ul></ul>
   <ul>
     <li>Open-source file archiver with a high compression ratio.</li>
@@ -111,7 +111,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- FD Manager -->
 <details>
-<summary><img src='logos/Free_Download_Manager_logo.png' alt="FDM_ogo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Free Download Manager</b></summary>
+<summary>&nbsp;<img src='logos/Free_Download_Manager_logo.png' alt="FDM_ogo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Free Download Manager</b></summary>
   <ul></ul>
   <ul>
     <li>A powerful, user-friendly, and fast download accelerator and organizer.</li>
@@ -134,7 +134,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows XP -->
 <details>
-<summary><img src='logos/win-xp_logo.jpg' alt="win-xp_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows XP Professional</b></summary>
+<summary>&nbsp;<img src='logos/win-xp_logo.jpg' alt="win-xp_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows XP Professional</b></summary>
   <ul></ul>
   <ul>
     <li>Classic Windows OS known for its stability and familiarity.</li>
@@ -146,7 +146,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows Vista -->
 <details>
-<summary><img src='logos/windows-vista_logo.png' alt="Windows-Vista_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows Vista Ultimate</b></summary>
+<summary>&nbsp;<img src='logos/windows-vista_logo.png' alt="Windows-Vista_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows Vista Ultimate</b></summary>
   <ul></ul>
   <ul>
     <li>The transitional OS between XP and 7, featuring a new user interface and enhanced security.</li>
@@ -158,7 +158,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows 7 -->
 <details>
-<summary><img src='logos/win-7_logo.png' alt="win-7_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 7 Ultimate</b></summary>
+<summary>&nbsp;<img src='logos/win-7_logo.png' alt="win-7_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 7 Ultimate</b></summary>
   <ul></ul>
   <ul>
     <li>Popular OS featuring enhanced performance and security.</li>
@@ -169,7 +169,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows 8.1 -->
 <details>
-<summary><img src='logos/win-8_logo.png' alt="win-8.1_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 8.1 Professional</b></summary>
+<summary>&nbsp;<img src='logos/win-8_logo.png' alt="win-8.1_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 8.1 Professional</b></summary>
   <ul></ul>
   <ul>
     <li>Improved version of Windows 8 with enhanced user experience.</li>
@@ -181,7 +181,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows 10 -->
 <details>
-<summary><img src='logos/win-10_logo.png' alt="win-10_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 10</b></summary>
+<summary>&nbsp;<img src='logos/win-10_logo.png' alt="win-10_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 10</b></summary>
   <ul></ul>
   <ul>
     <li>Latest version of Windows offering a host of new features and improvements.</li>
@@ -191,7 +191,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows 11 -->
 <details>
-<summary><img src='logos/win-11_logo.png' alt="win-11_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 11</b></summary>
+<summary>&nbsp;<img src='logos/win-11_logo.png' alt="win-11_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 11</b></summary>
   <ul></ul>
   <ul>
     <li>Next-gen Windows experience with a redesigned UI and improved performance.</li>
@@ -201,7 +201,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Activation Instructions -->
 <details>
-<summary><b>Activation Instructions for Windows - 10 & 11</b></summary>
+<summary>&nbsp;<b>Activation Instructions for Windows - 10 & 11</b></summary>
   <ul></ul>
   <ol>
     <li><a href="https://support.microsoft.com/en-us/windows/turn-off-defender-antivirus-protection-in-windows-security-99e6004f-c54c-8509-773c-a4d776b77960">Turn off Windows Defender</a> in Windows Security.</li>
@@ -224,7 +224,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Arch -->
 <details>
-<summary><img src='logos/arch_logo.png' alt="arch_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Arch</b></summary>
+<summary>&nbsp;<img src='logos/arch_logo.png' alt="arch_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Arch</b></summary>
   <ul></ul>
   <ul>
     <li>Lightweight and flexible Linux distribution for users who want to customize their system.</li>
@@ -234,7 +234,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- EndeavourOS -->
 <details>
-<summary><img src='logos/Endeavour-OS_logo.png' alt="Endeavour-OS_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>EndeavourOS</b></summary>
+<summary>&nbsp;<img src='logos/Endeavour-OS_logo.png' alt="Endeavour-OS_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>EndeavourOS</b></summary>
   <ul></ul>
   <ul>
     <li>Arch-based distribution that offers a user-friendly setup and maintains Arch’s simplicity.</li>
@@ -244,7 +244,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Fedora -->
 <details>
-<summary><img src='logos/fedora_logo.png' alt="fedora_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Fedora</b></summary>
+<summary>&nbsp;<img src='logos/fedora_logo.png' alt="fedora_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Fedora</b></summary>
   <ul></ul>
   <ul>
     <li>Cutting-edge Linux distribution with a focus on innovation and new technologies.</li>
@@ -254,7 +254,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Kali -->
 <details>
-<summary><img src='logos/kali1_logo.png' alt="kali_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Kali Linux 2024.3</b></summary>
+<summary>&nbsp;<img src='logos/kali1_logo.png' alt="kali_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Kali Linux 2024.3</b></summary>
   <ul></ul>
   <ul>
     <li>Leading penetration testing platform with advanced tools for ethical hackers.</li>
@@ -267,7 +267,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Parrot OS -->
 <details>
-<summary><img src='logos/parrotos_logo.jpg' alt="parrotos_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Parrot OS</b></summary>
+<summary>&nbsp;<img src='logos/parrotos_logo.jpg' alt="parrotos_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Parrot OS</b></summary>
   <ul></ul>
   <ul>
     <li>Security-focused Linux distribution for developers and privacy-conscious users.</li>
@@ -286,7 +286,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Pop!_OS -->
 <details>
-<summary><img src='logos/Pop-OS_logo.png' alt="PopOS_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Pop!_OS</b></summary>
+<summary>&nbsp;<img src='logos/Pop-OS_logo.png' alt="PopOS_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Pop!_OS</b></summary>
   <ul></ul>
   <ul>
     <li>A Linux distribution developed by System76, tailored for developers, makers, and computer science professionals.</li>
@@ -297,7 +297,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Ubuntu -->
 <details>
-<summary><img src='logos/ubuntu_logo.png' alt="ubuntu_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Ubuntu Desktop</b></summary>
+<summary>&nbsp;<img src='logos/ubuntu_logo.png' alt="ubuntu_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Ubuntu Desktop</b></summary>
   <ul></ul>
   <ul>
     <li>Popular Linux distribution known for its ease of use and community support.</li>
@@ -313,7 +313,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Powershell -->
 <details>
-<summary><img src='logos/Powershell_logo.png' alt="Powershell_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>PowerShell 7.4.5</b></summary>
+<summary>&nbsp;<img src='logos/Powershell_logo.png' alt="Powershell_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>PowerShell 7.4.5</b></summary>
   <ul></ul>
   <ul>
     <li>Cross-platform (Windows, Linux, and macOS) automation and configuration tool/framework.</li>
@@ -333,7 +333,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Metasploitable 2 -->
 <details>
-<summary><img src='logos/metasploitable2_logo.png' alt="metasploitable2_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Metasploitable 2</b></summary>
+<summary>&nbsp;<img src='logos/metasploitable2_logo.png' alt="metasploitable2_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Metasploitable 2</b></summary>
   <ul></ul>
   <ul>
     <li>Vulnerable virtual machine for practicing penetration testing and security assessments.</li>
