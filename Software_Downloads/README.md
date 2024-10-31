@@ -222,6 +222,21 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 > Explore the world of Linux with these distributions
 
 
+<!-- Termux -->
+<details>
+<summary>&nbsp;<img src='logos/termux_logo.png' alt="arch_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Termux (for Android)</b></summary>
+  <ul></ul>
+  <ul>
+    <li>Terminal emulator for Android that provides a Linux environment with shell access.</li>
+    <li>Supports Linux commands, SSH, Python, Git, and various development tools.</li>
+  </ul>
+  <ul>
+    <li><b>Termux Application <i>v0.119.0</i></b> - <a href="https://f-droid.org/repo/com.termux_1020.apk">Download APK</a>&nbsp;(102 MB)</li>
+    <li><b>Termux API <i>v0.50.1</i></b> - <a href="https://f-droid.org/repo/com.termux.api_51.apk">Download APK</a>&nbsp;(2.7 MB)</li>
+    <li><b>Termux Styling plugin <i>v0.32.1</i></b> - <a href="https://f-droid.org/repo/com.termux.styling_1000.apk">Download APK</a>&nbsp;(31 MB)</li>
+  </ul>
+</details>
+
 <!-- Arch -->
 <details>
 <summary>&nbsp;<img src='logos/arch_logo.png' alt="arch_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Arch</b></summary>
@@ -352,7 +367,7 @@ If you encounter any issues or have suggestions, please report them on our [GitH
 <br>
 
 
-## Last Updated: &nbsp;`17/10/2024`
+## Last Updated: &nbsp;`01/11/2024`
 
 Boost your productivity with a carefully chosen array of software and tools for your best experience!<br>
 ***Happy Downloading!***
