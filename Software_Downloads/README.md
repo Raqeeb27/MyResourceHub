@@ -276,7 +276,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li><a href="https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-installer-amd64.iso">Download ISO</a>&nbsp;(4 GB)</li>
     <li>Virtual machine (7zip compressed) for <a href="https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-vmware-amd64.7z">VMware</a>&nbsp;(3.1 GB)</li>
     <li>Virtual machine (7zip compressed) for <a href="https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-virtualbox-amd64.7z">VirtualBox</a>&nbsp;(3.1 GB)</li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine 2024.1 for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/f7308b35c42e17b8/EbgXLsQ1izAggPeJAAAAAAABh9T1R_NF7YUxDs62W8Wn4Q?e=NCJSF8">Download 7zip compressed</a>&nbsp;(3.22 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.4 - <a href="https://drive.google.com/file/d/1ISxDcasxpIKEo3gNUCXHhoxlYdOHqaeB/view?usp=sharing">Download 7zip compressed</a>&nbsp;(8.3 GB)</li>
   </ul>
 </details>
 
