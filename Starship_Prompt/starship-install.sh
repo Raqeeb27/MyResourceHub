@@ -148,12 +148,12 @@ apply_starship_preset() {
 
     mkdir -p ~/.config && touch ~/.config/starship.toml
     starship preset "$preset" -o ~/.config/starship.toml
-    
+
     echo -e "Starship $preset preset applied successfully.\n"
 }
 
 ## --------------------------------------------------------------------------
-# Function to setup starship 
+# Function to setup starship
 setup_starship_config() {
     echo "Setting up starship configuration file..."
     log_and_pause
@@ -278,7 +278,7 @@ configure_zshrc() {
     echo "Done!"
     font_cache=1
     log_and_pause
-    
+
 }
 
 ## --------------------------------------------------------------------------
@@ -297,7 +297,7 @@ check_caskaydia_font() {
         unzip_nerd_font
         update_fonts_dir
     fi
-    
+
     log_and_pause
 }
 

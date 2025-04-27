@@ -127,7 +127,7 @@ format = '[ $symbol ($version) ]($style)'
 symbol = "󰆥 "
 style = "bg:#00BFFF fg:#FFFFFF"
 format = '[ $symbol ($version) ]($style)'
- 
+
 [python]
 symbol = ""
 style = "bg:#00BFFF fg:#FFFFFF"

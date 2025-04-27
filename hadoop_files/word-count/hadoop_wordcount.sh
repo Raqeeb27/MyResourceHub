@@ -18,7 +18,7 @@ check_hadoop_availability(){
 
         echo -e "You can follow the Hadoop Installation guide at https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/README.md for the Hadoop Installation\n"
         sleep 1
-        
+
         echo -e "Exiting....\n"
         sleep 1
         exit 1
@@ -80,7 +80,7 @@ restart_hadoop_services() {
 # Function to create directory structure for WordCount
 create_directory_structure() {
     echo "Creating directory structure..."
-    
+
     # Check if Hadoop_WordCount directory already exists
     if [ -d ~/hadoop_wordcount ]; then
         rm -rf ~/hadoop_wordcount
@@ -98,28 +98,28 @@ create_directory_structure() {
 ## --------------------------------------------------------------------------
 # Function to Create/Edit input.txt
 edit_input_file(){
-    
+
     echo "Opening input.txt file......"
     sleep 3
     echo -e "Please provide input data in the editor that opens...\n"
 
     sleep 4
-    
+
     echo "# Erase this line and input your text. Then press ctrl+s to Save and ctrl+x to Exit" > ~/hadoop_wordcount/input_data/input.txt
     nano ~/hadoop_wordcount/input_data/input.txt
 
     input_file=~/hadoop_wordcount/input_data/input.txt
-    
+
     # Check if the file is empty or contains only spaces/blank lines
     if [[ ! -s "$input_file" ]] || [[ ! "$(grep -v '^[[:space:]]*$' "$input_file")" ]]; then
-    
+
         # File is empty or contains only spaces/blank lines, exit
         sleep 1
         echo "File was empty or contained only spaces/blank lines."
-        
+
         log_and_pause
         echo -e "Exiting....\n"
-        
+
         sleep 2
     	exit 0
     fi
@@ -205,7 +205,7 @@ set_hadoop_classpath(){
 
     # Check if HADOOP_CLASSPATH is already set
     if [ -z "$HADOOP_CLASSPATH" ]; then
-    
+
         # If not set, then set it
         export HADOOP_CLASSPATH=$(hadoop classpath)
         echo "HADOOP_CLASSPATH set to: $HADOOP_CLASSPATH"
@@ -227,23 +227,23 @@ setup_hdfs_wordcount_dir(){
 
     # Create WordCount directory if it doesn't exists
     hadoop fs -mkdir -p /WordCount/tmp
-    
+
     # Remove all the contents of WordCount directory
     hadoop fs -rm -r /WordCount/*
-    
+
     # Create 'Input' directory within 'WordCount' directory
     hadoop fs -mkdir -p /WordCount/Input
-    
+
     echo
     echo -e "Successfully created \"WordCount\" and \"Input\" directories in HDFS.\n"
     sleep 1
-    
+
     # upload local 'input.txt' file to Input directory in HDFS
     hadoop fs -put -f ~/hadoop_wordcount/input_data/input.txt /WordCount/Input/
 
     echo -e "\nUploaded input.txt file to Input directory in HDFS.."
     sleep 2
-    
+
     echo -e "\n\nHDFS operations completed successfully."
 
     log_and_pause
@@ -280,7 +280,7 @@ create_jar(){
 
     echo
     sleep 1
-    
+
     echo -e "JAR file created successfully.\n"
     sleep 3
 

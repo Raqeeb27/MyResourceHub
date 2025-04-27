@@ -26,7 +26,7 @@ check_hadoop_availability(){
 
         echo -e "You can follow the Hadoop Installation guide at https://github.com/Raqeeb27/MyResourceHub/blob/main/hadoop_files/README.md for the Hadoop Installation\n"
         sleep 1
-        
+
         echo -e "Exiting....\n"
         sleep 1
         exit 1
@@ -66,7 +66,7 @@ remove_bsdgames_if_installed() {
         "Arch")
             if pacman -Qs bsd-games >/dev/null 2>&1; then
                 # Remove bsd-games package
-                sudo pacman -Rs --noconfirm bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."                
+                sudo pacman -Rs --noconfirm bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."
             elif paru -Qs bsd-games >/dev/null 2>&1; then
                 # Remove bsd-games package
                 paru -Rns --noconfirm bsd-games && echo -e "\n'bsd-games' package has been removed.\n" || echo "Failed to remove 'bsd-games' package."
