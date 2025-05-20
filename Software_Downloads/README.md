@@ -353,7 +353,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul>
     <li>Vulnerable virtual machine for practicing penetration testing and security assessments.</li>
     <li><a href="https://sourceforge.net/projects/metasploitable/files/latest/download">Download ZIP</a>&nbsp;(825 MB)</li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/s!ArgXLsQ1izD3gQUa2fHeMWyRjeS9?e=qY16un">Download 7zip compressed</a>&nbsp;(626 MB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/f7308b35c42e17b8/ESa-W9CdHAtHva71Q12_UEgBMkyyul2KCj2xNKrRhyLTBQ?e=drdrsr">Download 7zip compressed</a>&nbsp;(626 MB)</li>
   </ul>
 </details>
 
