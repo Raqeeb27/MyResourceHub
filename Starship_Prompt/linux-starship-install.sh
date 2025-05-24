@@ -307,7 +307,7 @@ download_nerd_font() {
     echo "Downloading CascadiaCode Nerd Font for Preset..."
     log_and_pause
 
-    wget -O ~/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip
+    wget -O ~/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip
     log_and_pause
 }
 
