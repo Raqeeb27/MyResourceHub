@@ -8,49 +8,52 @@ function Wait-StarshipScript {
     Write-Host "`n"
 }
 
-function Test-WingetInstalled {
-    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-        Write-Warning "winget is not found. Please install winget to ensure dependencies can be managed automatically. You can download it from the Microsoft Store or GitHub."
-        return $false
-    }
-    return $true
-}
-
-function Install-Dependencies {
-    Write-Host "`nChecking for winget and other dependencies..."
-    Log-AndPause
-
-    if (-not (Test-WingetInstalled)) {
-        Write-Warning "Skipping dependency installation as winget is not available."
-        Log-AndPause
+function Install-Starship {
+    $starshipExe = Join-Path $env:ProgramFiles "starship\bin\starship.exe"
+    if (Test-Path $starshipExe) {
+        Write-Host "Starship is already installed at $starshipExe.`n"
+        Start-Sleep -Seconds 1
         return
     }
 
-    # As Invoke-WebRequest is used for downloads, curl and wget are not strictly necessary for this script's functions.
-    # If other dependencies were required via winget, they would be added here.
-    Write-Host "Basic dependencies for Starship primarily involve PowerShell itself and the ability to download."
-    Write-Host "This script uses PowerShell's built-in Invoke-WebRequest for downloads."
-    Log-AndPause
-}
+    Write-Host "Downloading and installing Starship..."
+    Start-Sleep -Seconds 1
 
-function Install-Starship {
-    if (-not (Get-Command starship -ErrorAction SilentlyContinue)) {
-        Write-Host "Starship not found, installing..."
-        Log-AndPause
-        try {
-            Invoke-WebRequest -Uri "https://starship.rs/install.ps1" -UseBasicParsing | Invoke-Expression
-            if (-not (Get-Command starship -ErrorAction SilentlyContinue)) {
-                Write-Warning "Starship installation script executed, but 'starship' command is still not found. You might need to restart PowerShell or check your PATH."
-            } else {
-                Write-Host "Starship installed successfully."
-            }
-        } catch {
-            Write-Error "Failed to install Starship: $($_.Exception.Message)"
+    $zipUrl = "https://github.com/starship/starship/releases/download/v1.23.0/starship-x86_64-pc-windows-msvc.zip"
+    $tempZip = Join-Path $env:TEMP "starship.zip"
+    $extractDir = Join-Path $env:TEMP "starship_extracted"
+
+    try {
+        Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -ErrorAction Stop
+        if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
+        Expand-Archive -Path $tempZip -DestinationPath $extractDir -Force -ErrorAction Stop
+
+        $starshipSrc = Get-ChildItem -Path $extractDir -Filter "starship.exe" -Recurse | Select-Object -First 1
+        if (-not $starshipSrc) {
+            Write-Error "starship.exe not found in the extracted archive."
+            return
         }
-    } else {
-        Write-Host "Starship is already installed.`n"
+
+        $destDir = Join-Path $env:ProgramFiles "starship"
+        $binDir = Join-Path $destDir "bin"
+        if (-not (Test-Path $binDir)) { New-Item -ItemType Directory -Path $binDir | Out-Null }
+
+        Move-Item -Path $starshipSrc.FullName -Destination $binDir -Force
+        Write-Host "Starship installed to $binDir."
+
+        # Optionally, add to PATH if not already present
+        $envPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+        if ($envPath -notmatch [regex]::Escape($binDir)) {
+            [System.Environment]::SetEnvironmentVariable("Path", "$envPath;$binDir", [System.EnvironmentVariableTarget]::Machine)
+            Write-Host "Added $binDir to system PATH. You may need to restart your terminal."
+        }
+    } catch {
+        Write-Error "Failed to install Starship: $($_.Exception.Message)"
+    } finally {
+        if (Test-Path $tempZip) { Remove-Item $tempZip -Force -ErrorAction SilentlyContinue }
+        if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
     }
-    Log-AndPause
+    Start-Sleep -Seconds 1
 }
 
 function Select-StarshipPreset {
@@ -130,7 +133,7 @@ function Initialize-StarshipConfig {
     } else {
         Select-StarshipPreset
     }
-    Pause-StarshipScript
+    Wait-StarshipScript
 }
 
 function Update-PowerShellProfile {
@@ -150,12 +153,12 @@ function Update-PowerShellProfile {
     } else {
         Write-Host "`nSkipped PowerShell profile configuration."
     }
-    Pause-StarshipScript
+    Wait-StarshipScript
 }
 
 function Get-NerdFont {
     Write-Host "Downloading CascadiaCode Nerd Font for Preset..."
-    Pause-StarshipScript
+    Wait-StarshipScript
     $fontZip = Join-Path $env:TEMP "CascadiaCode.zip" # Using TEMP directory for download
     try {
         Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip" -OutFile $fontZip -ErrorAction Stop
@@ -164,13 +167,13 @@ function Get-NerdFont {
         Write-Error "Failed to download CascadiaCode Nerd Font: $(${_}.Exception.Message)"
         return $null
     }
-    Pause-StarshipScript
+    Wait-StarshipScript
     return $fontZip
 }
 
 function Install-NerdFont {
     Write-Host "Attempting to install Nerd Font..."
-    Pause-StarshipScript
+    Wait-StarshipScript
 
     $fontDir = Join-Path $env:LOCALAPPDATA "Microsoft\Windows\Fonts"
     if (-not (Test-Path $fontDir)) { New-Item -ItemType Directory -Path $fontDir | Out-Null }
@@ -178,7 +181,7 @@ function Install-NerdFont {
     $fontZip = Get-NerdFont
     if (-not $fontZip) {
         Write-Warning "Skipping font installation due to download failure."
-        Pause-StarshipScript
+        Wait-StarshipScript
         return
     }
 
@@ -190,7 +193,7 @@ function Install-NerdFont {
         $fontFiles = Get-ChildItem "$extractDir\*.ttf"
         if ($fontFiles.Count -eq 0) {
             Write-Warning "No .ttf files found in the extracted font directory."
-            Pause-StarshipScript
+            Wait-StarshipScript
             return
         }
 
@@ -210,15 +213,14 @@ function Install-NerdFont {
         if (Test-Path $fontZip) { Remove-Item $fontZip -Force -ErrorAction SilentlyContinue }
         if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
     }
-    Pause-StarshipScript
+    Wait-StarshipScript
 }
 
 function Main {
     Clear-Host
     Write-Host "`n------- Automated Starship Installation Script -------"
-    Pause-StarshipScript
+    Wait-StarshipScript
 
-    Install-Dependencies
     Install-Starship
     Initialize-StarshipConfig
     Update-PowerShellProfile
