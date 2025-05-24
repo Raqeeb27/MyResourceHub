@@ -8,10 +8,30 @@ function Wait-StarshipScript {
     Write-Host "`n"
 }
 
+function Add-StarshipToPath {
+    param (
+        [string]$BinDir
+    )
+    $envPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+    if ($envPath -notmatch [regex]::Escape($BinDir)) {
+        [System.Environment]::SetEnvironmentVariable("Path", "$envPath;$BinDir", [System.EnvironmentVariableTarget]::Machine)
+        Write-Host "Added $BinDir to system PATH. You may need to restart your terminal."
+    }
+}
+
 function Install-Starship {
     $starshipExe = Join-Path $env:ProgramFiles "starship\bin\starship.exe"
     if (Test-Path $starshipExe) {
         Write-Host "Starship is already installed at $starshipExe.`n"
+        # Check if starship is in PATH
+        $binDir = Join-Path $env:ProgramFiles "starship\bin"
+        $envPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
+        if ($envPath -notmatch [regex]::Escape($binDir)) {
+            Write-Host "Starship is not in the system PATH. Adding now..."
+            Add-StarshipToPath -BinDir $binDir
+        } else {
+            Write-Host "Starship is already in the system PATH."
+        }
         Start-Sleep -Seconds 1
         return
     }
@@ -41,12 +61,8 @@ function Install-Starship {
         Move-Item -Path $starshipSrc.FullName -Destination $binDir -Force
         Write-Host "Starship installed to $binDir."
 
-        # Optionally, add to PATH if not already present
-        $envPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
-        if ($envPath -notmatch [regex]::Escape($binDir)) {
-            [System.Environment]::SetEnvironmentVariable("Path", "$envPath;$binDir", [System.EnvironmentVariableTarget]::Machine)
-            Write-Host "Added $binDir to system PATH. You may need to restart your terminal."
-        }
+        # Add to PATH using the new function
+        Add-StarshipToPath -BinDir $binDir
     } catch {
         Write-Error "Failed to install Starship: $($_.Exception.Message)"
     } finally {
@@ -110,7 +126,7 @@ function Set-StarshipPreset($preset) {
     $configDir = Join-Path $env:APPDATA "starship"
     if (-not (Test-Path $configDir)) { New-Item -ItemType Directory -Path $configDir | Out-Null }
     try {
-        starship preset $preset -o (Join-Path $configDir "starship.toml") -ErrorAction Stop
+        starship preset $preset -o (Join-Path $configDir "starship.toml")
         Write-Host "Starship $preset preset applied successfully.`n"
     } catch {
         Write-Error "Failed to apply Starship preset '$preset': $(${_}.Exception.Message)"
@@ -118,7 +134,7 @@ function Set-StarshipPreset($preset) {
 }
 
 function Initialize-StarshipConfig {
-    Write-Host "Setting up starship configuration file..."
+    Write-Host "`nSetting up starship configuration file..."
     Wait-StarshipScript
     $configFile = Join-Path (Join-Path $env:APPDATA "starship") "starship.toml"
     if (Test-Path $configFile) {
@@ -161,7 +177,7 @@ function Get-NerdFont {
     Wait-StarshipScript
     $fontZip = Join-Path $env:TEMP "CascadiaCode.zip" # Using TEMP directory for download
     try {
-        Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip" -OutFile $fontZip -ErrorAction Stop
+        Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip" -OutFile $fontZip -ErrorAction Stop
         Write-Host "Font downloaded to $fontZip"
     } catch {
         Write-Error "Failed to download CascadiaCode Nerd Font: $(${_}.Exception.Message)"
@@ -188,7 +204,7 @@ function Install-NerdFont {
     $extractDir = Join-Path $env:TEMP "CascadiaCode_Extracted" # Using TEMP directory for extraction
     try {
         Expand-Archive -Path $fontZip -DestinationPath $extractDir -Force -ErrorAction Stop
-        Write-Host "Font archive extracted to $extractDir"
+        Write-Host "Font archive extracted to $extractDir`n"
 
         $fontFiles = Get-ChildItem "$extractDir\*.ttf"
         if ($fontFiles.Count -eq 0) {
@@ -199,15 +215,19 @@ function Install-NerdFont {
 
         foreach ($file in $fontFiles) {
             try {
-                Copy-Item $file.FullName $fontDir -Force -ErrorAction Stop
-                Write-Host "Copied $($file.Name) to fonts directory."
+                try {
+                    Copy-Item $file.FullName $fontDir -Force -ErrorAction Stop
+                    Write-Host "Copied $($file.Name) to fonts directory."
+                } catch {
+                    Write-Warning "Skipped $($file.Name): File is in use or locked by another process."
+                }
             } catch {
                 Write-Error "Failed to copy $($file.Name) to fonts directory: $(${_}.Exception.Message)"
             }
         }
-        Write-Host "Fonts installed. You may need to set the font manually in your terminal settings (e.g., Windows Terminal, VS Code)."
+        Write-Host "`nFonts installed. You may need to set the font manually in your terminal settings (e.g., Windows Terminal, VS Code)."
     } catch {
-        Write-Error "Failed to extract or copy fonts: $(${_}.Exception.Message)"
+        Write-Error "`nFailed to extract or copy fonts: $(${_}.Exception.Message)"
     } finally {
         # Clean up temporary files
         if (Test-Path $fontZip) { Remove-Item $fontZip -Force -ErrorAction SilentlyContinue }
@@ -216,19 +236,17 @@ function Install-NerdFont {
     Wait-StarshipScript
 }
 
-function Main {
-    Clear-Host
-    Write-Host "`n------- Automated Starship Installation Script -------"
-    Wait-StarshipScript
 
-    Install-Starship
-    Initialize-StarshipConfig
-    Update-PowerShellProfile
-    Install-NerdFont
+Clear-Host
+Write-Host "`n------- Automated Starship Installation Script -------"
+Wait-StarshipScript
 
-    Write-Host "`nStarship Installation Successful!!!`n`n`n----- SUCCESS -----`n`n"
-    Write-Host "Please restart your terminal or run '. $PROFILE' to apply changes."
-    Read-Host "Press Enter to Exit..."
-}
+Install-Starship
+Initialize-StarshipConfig
+Update-PowerShellProfile
+Install-NerdFont
 
-Main
+Write-Host "`nStarship Installation Successful!!!`n`n`n----- SUCCESS -----`n`n"
+Write-Host "Please restart your terminal or run '. `$PROFILE' to apply changes.`n"
+Read-Host "Press Enter to Exit..."
+exit 0
