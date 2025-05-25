@@ -1,6 +1,6 @@
 # Starship Prompt Installation Script
 
-This folder contains a Bash script `starship-install.sh` to automate the installation process of the Starship prompt, a highly customizable and fast shell prompt.
+This folder contains a Bash script `linux-starship-install.sh` and a Powershell script `wimdows-starship-install.ps1` to automate the installation process of the Starship prompt, a highly customizable and fast shell prompt.
 
 ## Introduction
 
