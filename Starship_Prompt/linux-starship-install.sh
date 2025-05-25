@@ -62,28 +62,23 @@ install_dependencies() {
 ## --------------------------------------------------------------------------
 # Function to install Starship
 install_starship(){
-    # Check if Starship is installed
-    if ! command -v starship &>/dev/null; then
-        echo "Starship not found, installing..."
-        log_and_pause
-        # Open a new terminal window to perform the update interactively
-        case $distro in
-            "android")
-                apt install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
-                ;;
-            "arch")
-                sudo pacman -Sy --noconfirm starship || { echo "Error: Starship installation failed."; exit 1 ;}
-                ;;
-            "debian")
-                sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
-                ;;
-            "fedora")
-                sudo curl -fsSL https://starship.rs/install.sh | bash -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
-                ;;
-        esac
-    else
-        echo -e "Starship is already installed.\n"
-    fi
+    echo "Installing Starship..."
+    log_and_pause
+    case $distro in
+        "android")
+            apt install -y starship || { echo "Error: Starship installation failed."; exit 1 ;}
+            ;;
+        "arch")
+            sudo pacman -Sy --noconfirm starship || { echo "Error: Starship installation failed."; exit 1 ;}
+            ;;
+        "debian")
+            sudo curl -sS https://starship.rs/install.sh | sh -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+            ;;
+        "fedora")
+            sudo curl -fsSL https://starship.rs/install.sh | bash -s -- -y || { echo "Error: Starship installation failed."; exit 1 ;}
+            ;;
+    esac
+    echo -e "Starship installed successfully.\n"
 
     log_and_pause
 }
@@ -103,9 +98,14 @@ select_starship_preset() {
     echo " 8. Pastel Powerline"
     echo " 9. Tokyo Night"
     echo " 10. Gruvbox Rainbow"
-    echo " 11. Custom Starship Configuration - 1"
-    echo " 12. Custom Starship Configuration - 2"
-    echo -e " 13. None, Exit\n"
+    echo " 10. Jetpack"
+    echo " 12. Catppuccin Mocha"
+    echo " 13. Catppuccin Frappe"
+    echo " 14. Catppuccin Macchiato"
+    echo " 15. Catppuccin Latte"
+    echo " 16. Custom Starship Configuration - 1"
+    echo " 17. Custom Starship Configuration - 2"
+    echo -e " 18. None, Exit\n"
 
     sleep 1
     read -p "Enter the number corresponding to your choice: " choice
@@ -121,22 +121,36 @@ select_starship_preset() {
         8) apply_starship_preset "pastel-powerline" ;;
         9) apply_starship_preset "tokyo-night" ;;
         10) apply_starship_preset "gruvbox-rainbow" ;;
-        11) custom_starship_configuration "1";;
-        12) custom_starship_configuration "2";;
-        13) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
+        11) apply_starship_preset "jetpack" ;;
+        12) apply_starship_preset "catppuccin-mocha" ;;
+        13) apply_starship_preset "catppuccin-frappe" ;;
+        14) apply_starship_preset "catppuccin-macchiato" ;;
+        15) apply_starship_preset "catppuccin-latte" ;;
+        16) custom_starship_configuration "1";;
+        17) custom_starship_configuration "2";;
+        18) echo -e "\nExiting..."; log_and_pause; exit 1 ;;
         *) echo -e "\nInvalid choice. Exiting..."; log_and_pause; exit 1 ;;
     esac
 }
 
-custom_starship_configuration(){
-    local custom=$1
-    echo -e "\n\n\nApplying Custom Starship - $custom preset..."
+apply_starship_preset() {
+    local preset=$1
+    echo -e "\n\n\nApplying Starship $preset preset..."
     log_and_pause
 
     mkdir -p ~/.config && touch ~/.config/starship.toml
-    wget -O ~/.config/starship.toml https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/custom_starship_config-$custom.toml
 
-    echo -e "Custom Starship - $custom preset applied successfully.\n"
+    # Handle Catppuccin flavors as in the Windows script
+    if [[ "$preset" == catppuccin-* ]]; then
+        if [[ "$preset" == "catppuccin-mocha" ]]; then
+            export CATPPUCCIN_FLAVOR="$preset"
+        fi
+        preset="catppuccin-powerline"
+    fi
+
+    starship preset "$preset" -o ~/.config/starship.toml
+
+    echo -e "Starship $preset preset applied successfully.\n"
 }
 
 ## --------------------------------------------------------------------------
@@ -388,6 +402,12 @@ main() {
     update_font_cache
 
     echo -e "\nStarship Installation Successfull!!!\n\n\n----- SUCCESS -----\n\n"
+
+    if [[ -n "$CATPPUCCIN_FLAVOR" ]]; then
+        echo -e "NOTE: For Catppuccin presets, please open your ~/.config/starship.toml file and edit the 'preset' line to:"
+        echo -e "    preset = '$CATPPUCCIN_FLAVOR'"
+        echo -e "This ensures the correct Catppuccin flavor is applied.\n"
+    fi
 
     read -n 1 -s -r -p "Press any key to Exit..."
     sleep 0.5

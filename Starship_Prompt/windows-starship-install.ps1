@@ -21,23 +21,9 @@ function Add-StarshipToPath {
 
 function Install-Starship {
     $starshipExe = Join-Path $env:ProgramFiles "starship\bin\starship.exe"
-    if (Test-Path $starshipExe) {
-        Write-Host "Starship is already installed at $starshipExe.`n"
-        # Check if starship is in PATH
-        $binDir = Join-Path $env:ProgramFiles "starship\bin"
-        $envPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine)
-        if ($envPath -notmatch [regex]::Escape($binDir)) {
-            Write-Host "Starship is not in the system PATH. Adding now..."
-            Add-StarshipToPath -BinDir $binDir
-        } else {
-            Write-Host "Starship is already in the system PATH."
-        }
-        Start-Sleep -Seconds 1
-        return
-    }
 
-    Write-Host "Downloading and installing Starship..."
-    Start-Sleep -Seconds 1
+    Write-Host "Downloading and installing latest Starship..."
+    Wait-StarshipScript
 
     $zipUrl = "https://github.com/starship/starship/releases/download/v1.23.0/starship-x86_64-pc-windows-msvc.zip"
     $tempZip = Join-Path $env:TEMP "starship.zip"
@@ -61,7 +47,6 @@ function Install-Starship {
         Move-Item -Path $starshipSrc.FullName -Destination $binDir -Force
         Write-Host "Starship installed to $binDir."
 
-        # Add to PATH using the new function
         Add-StarshipToPath -BinDir $binDir
     } catch {
         Write-Error "Failed to install Starship: $($_.Exception.Message)"
@@ -69,7 +54,7 @@ function Install-Starship {
         if (Test-Path $tempZip) { Remove-Item $tempZip -Force -ErrorAction SilentlyContinue }
         if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
     }
-    Start-Sleep -Seconds 1
+    Wait-StarshipScript
 }
 
 function Select-StarshipPreset {
@@ -84,9 +69,14 @@ function Select-StarshipPreset {
     Write-Host " 8. Pastel Powerline"
     Write-Host " 9. Tokyo Night"
     Write-Host " 10. Gruvbox Rainbow"
-    Write-Host " 11. Custom Starship Configuration - 1"
-    Write-Host " 12. Custom Starship Configuration - 2"
-    Write-Host " 13. None, Exit`n"
+    Write-Host " 11. Jetpack"
+    Write-Host " 12. Catppuccin Mocha"
+    Write-Host " 13. Catppuccin Frappe"
+    Write-Host " 14. Catppuccin Macchiato"
+    Write-Host " 15. Catppuccin Latte"
+    Write-Host " 16. Custom Starship Configuration - 1"
+    Write-Host " 17. Custom Starship Configuration - 2"
+    Write-Host " 18. None, Exit`n"
     $choice = Read-Host "Enter the number corresponding to your choice"
     switch ($choice) {
         1 { Set-StarshipPreset "nerd-font-symbols" }
@@ -99,9 +89,14 @@ function Select-StarshipPreset {
         8 { Set-StarshipPreset "pastel-powerline" }
         9 { Set-StarshipPreset "tokyo-night" }
         10 { Set-StarshipPreset "gruvbox-rainbow" }
-        11 { Set-StarshipCustomConfiguration "1" }
-        12 { Set-StarshipCustomConfiguration "2" }
-        13 { Write-Host "`nExiting..."; Pause-StarshipScript; exit }
+        11 { Set-StarshipPreset "jetpack" }
+        12 { Set-StarshipPreset "catppuccin_mocha" }
+        13 { Set-StarshipPreset "catppuccin_frappe" }
+        14 { Set-StarshipPreset "catppuccin_macchiato" }
+        15 { Set-StarshipPreset "catppuccin_latte" }
+        16 { Set-StarshipCustomConfiguration "1" }
+        17 { Set-StarshipCustomConfiguration "2" }
+        18 { Write-Host "`nExiting..."; Pause-StarshipScript; exit }
         Default { Write-Host "`nInvalid choice. Exiting..."; Pause-StarshipScript; exit }
     }
 }
@@ -123,6 +118,12 @@ function Set-StarshipCustomConfiguration($custom) {
 function Set-StarshipPreset($preset) {
     Write-Host "`n`n`nApplying Starship $preset preset..."
     Wait-StarshipScript
+    if ($preset -like "catppuccin*") {
+        if ($preset -ne "catppuccin_mocha") {
+            $global:preset1 = $preset
+        }
+        $preset = "catppuccin-powerline"
+    }
     $configDir = Join-Path $env:APPDATA "starship"
     if (-not (Test-Path $configDir)) { New-Item -ItemType Directory -Path $configDir | Out-Null }
     try {
@@ -141,7 +142,7 @@ function Initialize-StarshipConfig {
         Write-Host "Starship is already configured."
         $choice = Read-Host "Do you want to configure a different preset? (Y/N)"
         if ($choice -match '^(y|yes|)$') {
-            Start-Sleep 1
+            Wait-StarshipScript
             Select-StarshipPreset
         } else {
             Write-Host "`nConfiguration file is unchanged."
@@ -153,29 +154,88 @@ function Initialize-StarshipConfig {
 }
 
 function Update-PowerShellProfile {
-    $profilePath = $PROFILE
-    if (-not (Test-Path $profilePath)) {
-        New-Item -ItemType File -Path $profilePath -Force | Out-Null
-    }
-    $profileContent = Get-Content $profilePath -Raw
-    if ($profileContent -match 'Invoke-Expression \(starship init powershell\)') {
-        Write-Host "Starship is already configured in your PowerShell profile.`n"
-        return
-    }
-    $choice = Read-Host "Do you want to configure your PowerShell profile? (y/n, default: yes)"
-    if ($choice -match '^(y|yes|)$') {
-        Add-Content $profilePath "`nInvoke-Expression (starship init powershell)"
-        Write-Host "Configured Starship in PowerShell profile."
-    } else {
-        Write-Host "`nSkipped PowerShell profile configuration."
+    $profilePathsToUpdate = @(
+        (Join-Path $HOME "Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"),
+        (Join-Path $HOME "Documents\PowerShell\Microsoft.PowerShell_profile.ps1")
+    )
+
+    $starshipLineToAdd = "`nInvoke-Expression (starship init powershell)"
+    $starshipCheckRegex = '(?i)\b(?:Invoke-Expression|iex)\s*\(?\s*starship\s+init\s+powershell\s*\)?'
+
+    Write-Host "Attempting to configure PowerShell profiles for both Windows PowerShell and PowerShell Core.`n"
+
+    foreach ($currentProfilePath in $profilePathsToUpdate) {
+        $profileDir = Split-Path $currentProfilePath -Parent
+        $profileFileName = Split-Path $currentProfilePath -Leaf
+
+        Write-Host "Processing profile: $currentProfilePath"
+
+        if (-not (Test-Path $profileDir)) {
+            Write-Host "  Profile directory does not exist. Creating: $profileDir"
+            New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
+        }
+
+        if (-not (Test-Path $currentProfilePath)) {
+            Write-Host "  Profile file does not exist. Creating: $profileFileName"
+            New-Item -ItemType File -Path $currentProfilePath -Force | Out-Null
+        }
+
+        $profileContent = ""
+        try {
+            $profileContent = Get-Content $currentProfilePath -Raw -ErrorAction Stop
+        } catch {
+            Write-Error "  Failed to read profile content from '$currentProfilePath': $($_.Exception.Message)"
+            Write-Host "  Assuming empty profile content for this file."
+        }
+
+        if ($profileContent -match $starshipCheckRegex) {
+            Write-Host "  Starship is already configured in this profile."
+        } else {
+            $choice = Read-Host "  Do you want to add Starship configuration to '$profileFileName'? (y/n, default: yes)"
+            if ($choice -match '^(y|yes|)$') {
+                try {
+                    Add-Content $currentProfilePath $starshipLineToAdd
+                    Write-Host "  Configured Starship in '$profileFileName'."
+
+                    $updatedContent = Get-Content $currentProfilePath -Raw
+                    if (-not ($updatedContent -match $starshipCheckRegex)) {
+                        Write-Error "  FAILED: Starship configuration not found in '$profileFileName' after writing. Please check manually."
+                    }
+                } catch {
+                    Write-Error "  Failed to add content to '$profileFileName': $($_.Exception.Message)"
+                }
+            } else {
+                Write-Host "  Skipped configuration for '$profileFileName'."
+            }
+        }
+        Write-Host ""
     }
     Wait-StarshipScript
 }
 
+function Test-NerdFontInstalled {
+    param (
+        [string]$FontDirectory
+    )
+    $requiredFontFiles = @(
+        "CaskaydiaCoveNerdFont-Regular.ttf",
+        "CaskaydiaCoveNerdFont-Bold.ttf"
+    )
+
+    foreach ($fontFile in $requiredFontFiles) {
+        $fontPath = Join-Path $FontDirectory $fontFile
+        if (-not (Test-Path $fontPath)) {
+            Write-Host "  Missing CaskaydiaCoveNerdFont"
+            return $false
+        }
+    }
+    return $true
+}
+
 function Get-NerdFont {
-    Write-Host "Downloading CascadiaCode Nerd Font for Preset..."
+    Write-Host "Downloading CaskaydiaCove Nerd Font for Preset..."
     Wait-StarshipScript
-    $fontZip = Join-Path $env:TEMP "CascadiaCode.zip" # Using TEMP directory for download
+    $fontZip = Join-Path $env:TEMP "CascadiaCode.zip"
     try {
         Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip" -OutFile $fontZip -ErrorAction Stop
         Write-Host "Font downloaded to $fontZip"
@@ -194,6 +254,12 @@ function Install-NerdFont {
     $fontDir = Join-Path $env:LOCALAPPDATA "Microsoft\Windows\Fonts"
     if (-not (Test-Path $fontDir)) { New-Item -ItemType Directory -Path $fontDir | Out-Null }
 
+    if (Test-NerdFontInstalled -FontDirectory $fontDir) {
+        Write-Host "CaskaydiaCove Nerd Font appears to be already installed. Skipping download and installation.`n"
+        Wait-StarshipScript
+        return
+    }
+
     $fontZip = Get-NerdFont
     if (-not $fontZip) {
         Write-Warning "Skipping font installation due to download failure."
@@ -201,7 +267,7 @@ function Install-NerdFont {
         return
     }
 
-    $extractDir = Join-Path $env:TEMP "CascadiaCode_Extracted" # Using TEMP directory for extraction
+    $extractDir = Join-Path $env:TEMP "CaskaydiaCove_Extracted"
     try {
         Expand-Archive -Path $fontZip -DestinationPath $extractDir -Force -ErrorAction Stop
         Write-Host "Font archive extracted to $extractDir`n"
@@ -236,17 +302,40 @@ function Install-NerdFont {
     Wait-StarshipScript
 }
 
-
+# Main script execution starts here
 Clear-Host
+
 Write-Host "`n------- Automated Starship Installation Script -------"
 Wait-StarshipScript
+
+# Check if running as Administrator
+$currentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object Security.Principal.WindowsPrincipal($currentIdentity)
+if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Warning "`nThis script must be run as Administrator."
+    Write-Host "`nTo run as Administrator:"
+    Write-Host "  1. Search and Right-click on PowerShell or Windows Terminal and select 'Run as administrator'."
+    Write-Host "  2. Then run this script from the elevated terminal using the command:"
+    $scriptPath = $MyInvocation.MyCommand.Path
+    Write-Host "  powershell -ExecutionPolicy Bypass -File `"$scriptPath`"`n"
+    Read-Host "Press Enter to exit..."
+    exit 1
+}
 
 Install-Starship
 Initialize-StarshipConfig
 Update-PowerShellProfile
 Install-NerdFont
 
-Write-Host "`nStarship Installation Successful!!!`n`n`n----- SUCCESS -----`n`n"
+Write-Host "Starship Installation Successful!!!`n`n`n----- SUCCESS -----`n`n"
+
+# If the user selected a Catppuccin preset, remind them to edit the preset line in starship.toml
+if ($global:preset1) {
+    Write-Host "NOTE: For Catppuccin presets, please open your starship.toml file (located at `$env:APPDATA\starship\starship.toml`) and edit the 31st line to:"
+    Write-Host "    preset = '$global:preset1'"
+    Write-Host "This ensures the correct Catppuccin flavor is applied.`n"
+}
+
 Write-Host "Please restart your terminal or run '. `$PROFILE' to apply changes.`n"
 Read-Host "Press Enter to Exit..."
 exit 0
