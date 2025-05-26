@@ -32,7 +32,7 @@ sudo dnf check-update -y && sudo dnf upgrade -y && sudo dnf install wget -y
 ### Step 2: Download and run the Installation Script
 Download the starship-install.sh script using wget and execute it:
 ```bash
-cd && wget -O ~/starship-install.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Starship_Prompt/starship-install.sh && bash starship-install.sh && exit
+cd && wget -O ~/linux-starship-install.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/refs/heads/main/Starship_Prompt/linux-starship-install.sh && bash linux-starship-install.sh && exit
 ```
 
 ### Step 3: Configure your terminal.
