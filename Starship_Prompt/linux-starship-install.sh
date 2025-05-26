@@ -43,7 +43,7 @@ install_dependencies() {
 
     case $distro in
         "android")
-            apt install -y curl wget unzip sl || { echo "Error: Dependencies installation failed."; exit 1 ;}
+            apt install -y curl wget unzip sl fontconfig-utils || { echo "Error: Dependencies installation failed."; exit 1 ;}
             ;;
         "arch")
             sudo pacman -Sy --noconfirm curl wget unzip || { echo "Error: Dependencies installation failed."; exit 1 ;}
@@ -404,7 +404,7 @@ main() {
     echo -e "\nStarship Installation Successfull!!!\n\n\n----- SUCCESS -----\n\n"
 
     if [[ -n "$CATPPUCCIN_FLAVOR" ]]; then
-        echo -e "NOTE: For Catppuccin presets, please open your ~/.config/starship.toml file and edit the 'preset' line to:"
+        echo -e "NOTE: For Catppuccin presets, please open your ~/.config/starship.toml file and edit the 31st line to:"
         echo -e "    preset = '$CATPPUCCIN_FLAVOR'"
         echo -e "This ensures the correct Catppuccin flavor is applied.\n"
     fi
