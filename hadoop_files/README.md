@@ -40,7 +40,7 @@ sudo dnf install wget -y
 ### Step 2: Download the Installation Script
 Download the hadoop-setup.sh script using wget:
 ```bash
-cd && wget -O ~/hadoop-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit
+cd && wget -O ~/hadoop-setup.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/refs/heads/main/hadoop_files/hadoop-setup.sh && bash hadoop-setup.sh && exit
 ```
 
 ### Step 3: Verify Installation
