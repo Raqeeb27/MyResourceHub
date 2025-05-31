@@ -23,5 +23,5 @@ sudo dnf install wget -y
 ```
 ### Download and run the Hadoop WordCount Automation Script
 ```bash
-cd && wget -O ~/hadoop_wordcount.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/hadoop_files/word-count/hadoop_wordcount.sh && bash hadoop_wordcount.sh
+cd && wget -O ~/hadoop_wordcount.sh https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/refs/heads/main/hadoop_files/word-count/hadoop_wordcount.sh && bash hadoop_wordcount.sh
 ```
