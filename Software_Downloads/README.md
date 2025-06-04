@@ -18,7 +18,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Utilities -->
 <a id="utilities"></a>
-# <span style="vertical-align: middle;"><img src='logos/Hammer_Wrench_image.png' alt="_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp;Utilities
+# <span style="vertical-align: middle;"><img src='logos/Hammer_Wrench_image.png' alt="Utilities_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp;Utilities
 
 > Equip your system with these essential utilities.   
 
@@ -127,7 +127,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Windows -->
 <a id="windows"></a>
-## <span style="vertical-align: middle;"><img src='logos/microsoft_logo.png' alt="_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp;Windows
+## <span style="vertical-align: middle;"><img src='logos/microsoft_logo.png' alt="Microsoft_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp;Windows
 
 > Upgrade your Windows experience with these operating systems
 
@@ -217,14 +217,14 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- Linux -->
 <a id="linux"></a>
-## <span style="vertical-align: middle;"><img src='logos/linux_logo.png' alt="_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp; Linux
+## <span style="vertical-align: middle;"><img src='logos/linux_logo.png' alt="Linux_Logo" style="width:40px;height:auto; margin-bottom: -3px;"></span> &nbsp; Linux
 
 > Explore the world of Linux with these distributions
 
 
 <!-- Termux -->
 <details>
-<summary>&nbsp;<img src='logos/termux_logo.png' alt="arch_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Termux (for Android)</b></summary>
+<summary>&nbsp;<img src='logos/termux_logo.png' alt="termux_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Termux (for Android)</b></summary>
   <ul></ul>
   <ul>
     <li>Terminal emulator for Android that provides a Linux environment with shell access.</li>
