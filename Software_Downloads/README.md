@@ -231,8 +231,8 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>Supports Linux commands, SSH, Python, Git, and various development tools.</li>
   </ul>
   <ul>
-    <li><b>Termux Application <i>v0.119.0</i></b> - <a href="https://f-droid.org/repo/com.termux_1020.apk">Download APK</a>&nbsp;(102 MB)</li>
-    <li><b>Termux API <i>v0.50.1</i></b> - <a href="https://f-droid.org/repo/com.termux.api_51.apk">Download APK</a>&nbsp;(2.7 MB)</li>
+    <li><b>Termux Application <i>v0.119.0-beta.2</i></b> - <a href="https://f-droid.org/repo/com.termux_1021.apk">Download APK</a>&nbsp;(102 MB)</li>
+    <li><b>Termux API <i>v0.51.0</i></b> - <a href="https://f-droid.org/repo/com.termux.api_1000.apk">Download APK</a>&nbsp;(2.7 MB)</li>
     <li><b>Termux Styling plugin <i>v0.32.1</i></b> - <a href="https://f-droid.org/repo/com.termux.styling_1000.apk">Download APK</a>&nbsp;(31 MB)</li>
   </ul>
 </details>
