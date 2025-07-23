@@ -26,7 +26,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 
 <!-- VC Redist -->
 <details>
-<summary>&nbsp;<img src='logos/vc-redist_logo.png' alt="vc_redist_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Visual C++ Redistributable Packages</b></summary>
+<summary>&nbsp;<img src='logos/vc-redist_logo.png' alt="vc_redist_logo" style="width:30px;height:auto; margin-bottom: -3px; pointer-events: none;"> &nbsp;<b>Visual C++ Redistributable Packages</b></summary>
   <ul></ul>
   <ul>
     <li>Essential runtime components for running C++ applications built with Visual Studio.</li>
