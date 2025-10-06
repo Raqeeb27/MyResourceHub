@@ -119,6 +119,16 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   </ul>
 </details>
 
+<!-- Marc Files -->
+<details>
+<summary>&nbsp;<img src='logos/marc_files_logo.png' alt="Files_logo" style="width:30px;height:auto; margin-bottom: -3px;"> <b>&nbsp;Files for Android</b></summary>
+  <ul></ul>
+  <ul>
+    <li>A powerful, user-friendly, and fast file manager for Android devices.</li>
+    <li><a href="https://play.google.com/store/apps/details?id=com.marc.files">Download from Google Play Store</a>&nbsp;(240 KB)</li>
+  </ul>
+</details>
+
 <br>
 
 
