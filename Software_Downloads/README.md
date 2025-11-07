@@ -320,7 +320,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   </ul>
 </details>
 
-<!-- Ubuntu -->
+<!-- Ubuntu Desktop -->
 <details>
 <summary>&nbsp;<img src='logos/ubuntu_logo.png' alt="ubuntu_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Ubuntu Desktop</b></summary>
   <ul></ul>
@@ -329,6 +329,17 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li><b>Ubuntu 24.04.1 LTS:</b> <a href="https://ubuntu.com/download/desktop/thank-you?version=24.04.1&architecture=amd64&lts=true">Download ISO</a>&nbsp;(5.7 GB)</li>
   </ul>
 </details>
+
+<!-- Ubuntu Server -->
+<details>
+<summary>&nbsp;<img src='logos/ubuntu_logo.png' alt="ubuntu_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Ubuntu Server</b></summary>
+  <ul></ul>
+  <ul>
+    <li>A version of the Linux-based Ubuntu OS specifically designed for server environments. Optimized for performance, security, and reliability, lacks graphical user interface by default, instead using a command-line interface (CLI) for more efficient remote management.</li>
+    <li><b>Ubuntu Server 24.04.3 LTS:</b> <a href="https://ubuntu.com/download/server/thank-you?version=24.04.3&architecture=amd64&lts=true">Download ISO</a>&nbsp;(3.1 GB)</li>
+  </ul>
+</details>
+
 
 <br>
 
