@@ -348,7 +348,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul>
     <li>A version of the Linux-based Ubuntu OS specifically designed for server environments. Optimized for performance, security, and reliability, lacks graphical user interface by default, instead using a command-line interface (CLI) for more efficient remote management.</li>
     <li><b>Ubuntu Server 24.04.3 LTS:</b> <a href="https://ubuntu.com/download/server/thank-you?version=24.04.3&architecture=amd64&lts=true">Download ISO</a>&nbsp;(3.1 GB)</li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.10 - <a href="https://drive.google.com/file/d/1rrr2YvwjddcLgAhn9efkbv-_ibknWs5j/view?usp=drivesdk">Download 7zip compressed</a>&nbsp;(3.36 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.10 - <a href="https://1drv.ms/u/c/5ff34cdbdb104fe2/EZ1CQKPN1MNEgDFJn21-dm4BGRybIHwdyYnwmSdPb0TUKw?e=cH6BCB">Download 7zip compressed</a>&nbsp;(3.36 GB)</li>
   </ul>
 </details>
 
