@@ -162,7 +162,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>The transitional OS between XP and 7, featuring a new user interface and enhanced security.</li>
     <li><a href="https://archive.org/download/windows-vista-ultimate-sp-2-x-64-fully-updated/Windows%20Vista%20Ultimate%20SP2%20x64%20Fully%20Updated.iso">Download ISO</a>&nbsp;(4.6 GB)</li>
     <li><b>Product Key:</b> <code>VMCB9-FDRV6-6CDQM-RV23K-RP8F7</code></li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://drive.google.com/file/d/1yGLd0xEdRjN4KsLXT0a1V-muA6t-RYmB/view?usp=sharing">Download 7zip compressed</a>&nbsp;(3.24 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://drive.google.com/file/d/1nPwmDgO3npx4uFZrXKWrvDxpdoI2l9IY/view?usp=sharing">Download 7zip compressed</a>&nbsp;(3.24 GB)</li>
   </ul>
 </details>
 
