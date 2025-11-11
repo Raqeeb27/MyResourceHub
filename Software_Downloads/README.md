@@ -150,7 +150,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>Classic Windows OS known for its stability and familiarity.</li>
     <li><a href="https://isoriver.com/download-your-file-now/?url=https://archive.org/download/WindowsXPProfessional64BitCorporateEdition/Windows%20XP%20Professional%2064-bit%20Corporate%20Edition%28CD%20Key%20VCFQD-V9FX9-46WVH-K3CD4-4J3JM%29.iso">Download ISO</a>&nbsp;(561 MB)</li>
     <li><b>Product Key:</b> <code>VCFQD-V9FX9-46WVH-K3CD4-4J3JM</code></li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/f7308b35c42e17b8/EbgXLsQ1izAggPeGAAAAAAABVYiPJPtz8gXI_f3SXscQiw?e=dBFdYQ">Download 7zip compressed</a>&nbsp;(768 MB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://drive.google.com/file/d/1g_xNgn1Pjl3q6-uUYJeBcj4uA__0DNnz/view?usp=sharing">Download 7zip compressed</a>&nbsp;(768 MB)</li>
   </ul>
 </details>
 
