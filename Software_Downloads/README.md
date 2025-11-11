@@ -35,7 +35,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
 </details>
 
 <!-- VMware -->
-<details>
+<!-- <details>
 <summary>&nbsp;<img src='logos/VMware_logo.png' alt="VMware_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>VMware Workstation Pro 17</b></summary>
   <ul></ul>
   <ul>
@@ -43,7 +43,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li><a href="https://download3.vmware.com/software/WKST-1751-WIN/VMware-workstation-full-17.5.1-23298084.exe">Download for Windows</a></li>
     <li><a href="https://download3.vmware.com/software/WKST-1751-LX/VMware-Workstation-Full-17.5.1-23298084.x86_64.bundle">Download for Linux</a></li>
   </ul>
-</details>
+</details> -->
 
 <!-- VirtualBox -->
 <details>
