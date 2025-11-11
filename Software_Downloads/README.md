@@ -177,6 +177,16 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   </ul>
 </details>
 
+<!-- Windows 8 -->
+<details>
+<summary>&nbsp;<img src='logos/win-8_logo.png' alt="win-8_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 8 Professional</b></summary>
+  <ul></ul>
+  <ul>
+    <li>Redesigned, tile-based "Modern" user interface optimized for both touchscreen and traditional PC use.</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://drive.google.com/file/d/1TGa3gUxlSAyGQLLrzp70bGKyjcHzIybc/view?usp=sharing">Download 7zip compressed</a>&nbsp;(2.25 GB)</li>
+  </ul>
+</details>
+
 <!-- Windows 8.1 -->
 <details>
 <summary>&nbsp;<img src='logos/win-8_logo.png' alt="win-8.1_logo" style="width:30px;height:auto; margin-bottom: -3px;"> &nbsp;<b>Windows 8.1 Professional</b></summary>
