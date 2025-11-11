@@ -195,7 +195,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>Improved version of Windows 8 with enhanced user experience.</li>
     <li><a href="https://windows-8-1-preview.en.uptodown.com/windows/download">Download ISO</a>&nbsp;(4 GB)</li>
     <li><b>Product Key:</b> <code>GCRJD-8NW9H-F2CDX-CCM8D-9D6T9</code></li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/5ff34cdbdb104fe2/EeJPENvbTPMggF9sAAAAAAAB6OPL49heWADARtRPatWG8A?e=stXLEA">Download 7zip compressed</a>&nbsp;(3 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/bd8d0e85b54e2c44/IQCGpkdmJIIwQ4M1bRqOxKwMAfO0tnJ-pqKpP4A-tAUVhzo?e=Bx5eR3">Download 7zip compressed</a>&nbsp;(3 GB)</li>
   </ul>
 </details>
 
