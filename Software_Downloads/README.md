@@ -206,7 +206,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul>
     <li>Latest version of Windows offering a host of new features and improvements.</li>
     <li><a href="https://go.microsoft.com/fwlink/?LinkId=2265055">Download Media Creation Tool</a>&nbsp;(19 MB)</li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.10 - <a href="https://mega.nz/file/uoAiQLCL#mpP_sgHcBPGEVEuWr_RB-mAYjFGWZ8rJZSgcljBO6t8">Download 7zip compressed</a>&nbsp;(9 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.10 - <a href="https://drive.google.com/file/d/1VYb8hmrYO6eAm8Qa8tuaPq6Qi49EyR7Z/view?usp=sharing">Download 7zip compressed</a>&nbsp;(9 GB)</li>
   </ul>
 </details>
 
