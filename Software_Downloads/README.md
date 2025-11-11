@@ -173,7 +173,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul>
     <li>Popular OS featuring enhanced performance and security.</li>
     <li><a href="https://archive.org/download/win-7-ult-sp-1-english-x-64/Win7_Ult_SP1_English_x64.iso">Download ISO</a>&nbsp;(3.1 GB)</li>
-    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://drive.google.com/file/d/1puwJlOA7trtTZswQ8mqIKtspleVujmKL/view?usp=sharing">Download 7zip compressed</a>&nbsp;(2 GB)</li>
+    <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.0.18 - <a href="https://1drv.ms/u/c/bd8d0e85b54e2c44/IQC51k-5V7NrRbyvRZ5aZ1aZAXg6jp2Yap4_uH9rpQgcpzY?e=gLLjFb">Download 7zip compressed</a>&nbsp;(2 GB)</li>
   </ul>
 </details>
 
