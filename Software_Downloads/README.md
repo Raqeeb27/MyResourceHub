@@ -396,7 +396,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul></ul>
   <ul>
     <li>Capture the Flag (CTF) virtual machine designed for penetration testing and security enthusiasts.</li>
-    <li><b>Toppo: 1</b> - <a href="https://1drv.ms/u/c/5ff34cdbdb104fe2/EZvIKKijw5JLpmTiYE-f7qMBHDZKvVGH8vnf3SDmE73ErA?e=TPvxe7">Download 7zip compressed</a>&nbsp;(378 MB)</li>
+    <li><b>Toppo: 1</b> - <a href="https://drive.google.com/file/d/17q3cxpJpT8DTlcgU492dro7StljVUB9E/view?usp=sharing">Download 7zip compressed</a>&nbsp;(378 MB)</li>
   </ul>
 </details>
 
