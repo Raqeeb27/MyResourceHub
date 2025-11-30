@@ -30,7 +30,7 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ul></ul>
   <ul>
     <li>Essential runtime components for running C++ applications built with Visual Studio.</li>
-    <li><a href="https://aka.ms/vs/17/release/vc_redist.x64.exe">Download EXE</a> (24 MB)</li>
+    <li><a href="https://aka.ms/vc14/vc_redist.x64.exe">Download EXE</a> (18 MB)</li>
   </ul>
 </details>
 
@@ -53,8 +53,8 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>Free, open-source virtualization platform for creating and managing virtual machines.</li>
     <li><b>Windows Hosts</b></li>
     <ul>
-      <li>VirtualBox 7.1.4 - <a href="https://download.virtualbox.org/virtualbox/7.1.4/VirtualBox-7.1.4-165100-Win.exe">Download</a>&nbsp;(106 MB)</li>
-      <li>VirtualBox 7.1.2 - <a href="https://download.virtualbox.org/virtualbox/7.1.2/VirtualBox-7.1.2-164945-Win.exe">Download</a>&nbsp;(106 MB)</li>
+      <li>VirtualBox 7.2.4 - <a href="https://download.virtualbox.org/virtualbox/7.2.4/VirtualBox-7.2.4-170995-Win.exe">Download</a>&nbsp;(168 MB)</li>
+      <li>VirtualBox 7.1.10 - <a href="https://download.virtualbox.org/virtualbox/7.1.10/VirtualBox-7.1.10-169112-Win.exe">Download</a>&nbsp;(119 MB)</li>
     </ul>
   </ul>
 </details>
