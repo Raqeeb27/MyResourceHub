@@ -227,7 +227,12 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
   <ol>
     <li><a href="https://support.microsoft.com/en-us/windows/turn-off-defender-antivirus-protection-in-windows-security-99e6004f-c54c-8509-773c-a4d776b77960">Turn off Windows Defender</a> in Windows Security.</li>
     <li>Download the activation file to your Desktop by the following CMD command:</li>
-    <code>bash curl -o "%USERPROFILE%\Desktop\Activator.bat" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/Activator.bat</code>
+  </ol>
+  
+  ```bash
+  curl -o "%USERPROFILE%\Desktop\Activator.bat" https://raw.githubusercontent.com/Raqeeb27/MyResourceHub/main/Software_Downloads/Activator.bat
+  ```
+  <ol start="3">
     <li>Run the downloaded file <code>Activator.bat</code> as Administrator to activate Windows.</li>
     <li>If the file executes successfully, then restart your Windows.</li>
   </ol>
