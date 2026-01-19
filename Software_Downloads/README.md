@@ -304,6 +304,17 @@ Welcome to the Software Downloads repository, your ultimate destination for vari
     <li>Virtual machine (7zip compressed) for <a href="https://cdimage.kali.org/kali-2024.3/kali-linux-2024.3-virtualbox-amd64.7z">VirtualBox</a>&nbsp;(3.1 GB)</li>
     <li>( RECOMMENDED )<br>Pre-configured Virtual machine for VirtualBox &nbsp;v7.1.4 - <a href="https://drive.google.com/file/d/1ISxDcasxpIKEo3gNUCXHhoxlYdOHqaeB/view?usp=sharing">Download 7zip compressed</a>&nbsp;(8.3 GB)</li>
   </ul>
+&emsp;&nbsp;&nbsp;&nbsp;Run the below commands before updating the system (for preconfigured 7zip compressed machine [8.3 GB]):
+  
+  ```bash
+  sudo mkdir -p /etc/apt/keyrings
+  wget -qO- https://archive.kali.org/archive-key.asc | sudo tee /etc/apt/keyrings/kali.asc
+  echo "deb [signed-by=/etc/apt/keyrings/kali.asc] http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee /etc/apt/sources.list > /dev/null 
+  ```
+&emsp;&nbsp;&nbsp;&nbsp;The run the below command to update and upgrade the system:
+  ```bash
+  sudo apt update && sudo apt upgrade -y
+  ```
 </details>
 
 <!-- Parrot OS -->
